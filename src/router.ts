@@ -1,7 +1,5 @@
 import express, { Request, Response } from "express";
-import AuthController from "./controllers/AuthController";
-import TestController from "./controllers/TestController";
-import VaultController from "./controllers/VaultController";
+import { AuthController, VaultController, TestController } from "./controllers";
 import { SuperRequest } from "./interfaces";
 // tslint:disable-next-line:no-var-requires
 const passport = require("passport");

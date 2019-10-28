@@ -2,14 +2,14 @@
   "name": "sentinel",
   "version": "1.0.0",
   "description": "Password Manager with TypeScript, Express, ArangoDB and React",
-  "main": "dist/server.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "tsc && node .",
     "dev": "nodemon ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DennisOnder/sentinel.git"
+    "url": "git+https://github.com/denis-onder/sentinel-rebooted.git"
   },
   "keywords": [
     "TypeScript",
@@ -20,9 +20,9 @@
   "author": "Dennis Onder",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DennisOnder/sentinel/issues"
+    "url": "https://github.com/denis-onder/sentinel-rebooted/issues"
   },
-  "homepage": "https://github.com/DennisOnder/sentinel#readme",
+  "homepage": "https://github.com/denis-onder/sentinel-rebooted#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

@@ -3,7 +3,6 @@ import { UserRegister, UserLogin } from "../interfaces";
 
 class InputValidator {
   public register(data: UserRegister) {
-    // tslint:disable-next-line
     let errors: any = {};
     if (Validator.isEmpty(data.firstName)) {
       errors.firstNameEmpty = "First name is required.";
@@ -24,14 +23,12 @@ class InputValidator {
       errors.passwordLength =
         "Your password should be between 8 and 32 characters long.";
     }
-    if (Reflect.ownKeys(errors).length > 0) {
+    if (Object.keys(errors).length > 0) {
       return errors;
-    } else {
-      return true;
     }
+    return true;
   }
   public login(data: UserLogin) {
-    // tslint:disable-next-line
     let errors: any = {};
     if (Validator.isEmpty(data.email)) {
       errors.emailEmpty = "Email address is required.";
@@ -42,11 +39,10 @@ class InputValidator {
     if (Validator.isEmpty(data.password)) {
       errors.passwordEmpty = "A password is required.";
     }
-    if (Reflect.ownKeys(errors).length > 0) {
+    if (Object.keys(errors).length > 0) {
       return errors;
-    } else {
-      return true;
     }
+    return true;
   }
 }
 

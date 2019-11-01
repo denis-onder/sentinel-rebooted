@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { AuthController, VaultController, TestController } from "./controllers";
+import { AuthController, VaultController } from "./controllers";
 import { SuperRequest } from "./interfaces";
 // tslint:disable-next-line:no-var-requires
 const passport = require("passport");
@@ -12,9 +12,6 @@ class Router {
   private config(): void {
     this.router.get("/", (req: Request, res: Response) =>
       res.render("pages/landing")
-    );
-    this.router.get("/test", (req: Request, res: Response) =>
-      TestController.test(req, res)
     );
     this.router.post("/register", (req: Request, res: Response) =>
       AuthController.register(req, res)

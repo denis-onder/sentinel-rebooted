@@ -25,7 +25,7 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  field: [fieldSchema]
+  fields: [fieldSchema]
 });
 
 export default model("vault", schema);

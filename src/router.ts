@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { AuthController, VaultController } from "./controllers";
 import { SuperRequest } from "./interfaces";
+import checkForVault from "./middleware/checkForVault";
 // tslint:disable-next-line:no-var-requires
 const passport = require("passport");
 
@@ -24,25 +25,23 @@ class Router {
       passport.authenticate("jwt", { session: false }),
       (req: SuperRequest, res: Response) => AuthController.current(req, res)
     );
-    this.router.get(
-      "/vault/check",
-      passport.authenticate("jwt", { session: false }),
-      (req: Request, res: Response) => VaultController.checkForVault(req, res)
-    );
     this.router.post(
       "/vault/create",
       passport.authenticate("jwt", { session: false }),
-      (req: Request, res: Response) => VaultController.createVault(req, res)
+      (req: SuperRequest, res: Response) =>
+        VaultController.createVault(req, res)
     );
     this.router.get(
       "/vault/get",
       passport.authenticate("jwt", { session: false }),
-      (req: Request, res: Response) => VaultController.openVault(req, res)
+      checkForVault,
+      (req: SuperRequest, res: Response) => VaultController.openVault(req, res)
     );
     this.router.put(
       "/vault/add",
       passport.authenticate("jwt", { session: false }),
-      (req: Request, res: Response) => VaultController.addField(req, res)
+      checkForVault,
+      (req: SuperRequest, res: Response) => VaultController.addField(req, res)
     );
   }
 }

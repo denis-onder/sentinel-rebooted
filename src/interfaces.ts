@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { WordArray } from "crypto-js";
 
 interface UserLogin {
   email: string;
@@ -38,7 +39,7 @@ export {
   UserLogin,
   UserRegister,
   Vault,
-  VaultField,
   UserInterface,
-  SuperRequest
+  SuperRequest,
+  VaultField
 };

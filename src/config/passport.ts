@@ -1,11 +1,8 @@
-// tslint:disable:no-console
-// tslint:disable:quotemark
-// tslint:disable:arrow-parens
-// tslint:disable:no-shadowed-variable
 import { Application } from "express";
 import passport from "passport";
 import { Strategy, ExtractJwt } from "passport-jwt";
 import config from "../config/config";
+import User from "../db/models/user.model";
 
 export default class PassportJSConfig {
   public static init(app: Application) {
@@ -16,7 +13,11 @@ export default class PassportJSConfig {
           jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
           secretOrKey: config.secret
         },
-        (payload: any, done: any) => {}
+        async (payload: any, done: any) => {
+          const user = await User.findById(payload.id);
+          if (!user) return done("User not found.", false);
+          return done(null, user);
+        }
       )
     );
   }

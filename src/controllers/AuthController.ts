@@ -7,6 +7,7 @@ import {
 } from "../interfaces";
 import User from "../db/models/user.model";
 import bcryptjs from "bcryptjs";
+import generateToken from "../utils/generateToken";
 
 class AuthController {
   public async register(req: Request, res: Response) {
@@ -34,14 +35,14 @@ class AuthController {
       email,
       password: req.body.password
     };
-    if (!bcryptjs.compareSync(user.password, credentials.password))
+    if (!bcryptjs.compareSync(credentials.password, user.password))
       return res.status(403).json({ error: "Invalid password." });
-    return res.status(200).json();
+    const token = generateToken({ id: user.id });
+    return res.status(200).json({ token });
   }
   public current(req: SuperRequest, res: Response) {
     const user: UserInterface = {
-      id: req.user.id,
-      email: req.user.email
+      id: req.user.id
     };
     return res.status(200).json(user);
   }

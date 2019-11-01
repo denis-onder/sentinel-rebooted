@@ -4,8 +4,9 @@
   "description": "Password Manager with TypeScript, Express, ArangoDB and React",
   "main": "dist/index.js",
   "scripts": {
-    "start": "tsc && node .",
-    "dev": "nodemon ."
+    "compile": "tsc",
+    "start": "npm run compile && node .",
+    "dev": "npm run compile && nodemon ."
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "ejs": "^2.7.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.7",
@@ -40,6 +42,7 @@
     "@types/body-parser": "^1.17.0",
     "@types/cors": "^2.8.5",
     "@types/dotenv": "^6.1.1",
+    "@types/ejs": "^2.6.3",
     "@types/express": "^4.17.0",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/mongoose": "^5.5.23",

@@ -10,6 +10,9 @@ class Router {
     this.config();
   }
   private config(): void {
+    this.router.get("/", (req: Request, res: Response) =>
+      res.render("pages/landing")
+    );
     this.router.get("/test", (req: Request, res: Response) =>
       TestController.test(req, res)
     );

@@ -10,7 +10,7 @@ interface UserRegister extends UserLogin {
   lastName: string;
 }
 
-interface User {
+interface UserInterface {
   id: string;
   __v?: string;
   email?: string;
@@ -31,7 +31,14 @@ interface VaultField {
 }
 
 interface SuperRequest extends Request {
-  user: User;
+  user: UserInterface;
 }
 
-export { UserLogin, UserRegister, Vault, VaultField, User, SuperRequest };
+export {
+  UserLogin,
+  UserRegister,
+  Vault,
+  VaultField,
+  UserInterface,
+  SuperRequest
+};

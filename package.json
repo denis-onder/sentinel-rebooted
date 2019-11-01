@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc",
     "start": "npm run compile && node .",
-    "dev": "npm run compile && nodemon ."
+    "dev": "ts-node-dev src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -53,7 +53,7 @@
     "@types/validator": "^10.11.1",
     "concurrently": "^4.1.0",
     "dotenv": "^6.2.0",
-    "nodemon": "^1.19.1",
+    "ts-node-dev": "^1.0.0-pre.43",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   }

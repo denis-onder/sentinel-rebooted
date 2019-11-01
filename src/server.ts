@@ -5,8 +5,9 @@ import PassportJSConfig from "./config/passport";
 import config from "./config/config";
 import Router from "./router";
 import path from "path";
+import connectDB from "./db";
 
-export default class Server {
+class Server {
   public app: express.Application;
   constructor() {
     this.app = express();
@@ -18,8 +19,9 @@ export default class Server {
     this.app.use(cors());
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
-    this.app.use("/api", Router);
+    this.app.use(Router);
     PassportJSConfig.init(this.app);
+    connectDB();
   }
   public start() {
     this.app.listen(config.port, () =>
@@ -27,3 +29,5 @@ export default class Server {
     );
   }
 }
+
+export default new Server();

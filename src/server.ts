@@ -15,7 +15,8 @@ class Server {
   }
   private config() {
     this.app.set("views", path.join(__dirname, "../views"));
-    this.app.set("view engine", "ejs");
+    this.app.set("view engine", "jsx");
+    this.app.engine("jsx", require("express-react-views").createEngine());
     this.app.use(cors());
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));

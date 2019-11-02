@@ -12,7 +12,7 @@ class Router {
   }
   private config(): void {
     this.router.get("/", (req: Request, res: Response) =>
-      res.render("pages/landing")
+      res.render("pages/landing", { name: "Sentinel." })
     );
     this.router.post("/register", (req: Request, res: Response) =>
       AuthController.register(req, res)

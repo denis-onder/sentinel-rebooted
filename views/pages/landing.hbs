@@ -1,11 +1,20 @@
 <div id="landing">
   <h1 class="landing_header">Sentinel</h1>
   <div class="landing_box_wrapper">
-    <div class="landing_box"><a href="/register" class="landing_box_link">Register</a>
+    <div class="landing_box">
+      <div class="landing_box_link">
+        <a id="register" href="/register" class="landing_box_link_text">Register</a>
+        <i id="register_arrow" class="landing_box_link_arrow  fas fa-long-arrow-alt-right" data-ref="register"></i>
+      </div>
       <p class="landing_box_text">Click here to create your account!</p>
     </div>
-    <div class="landing_box"><a href="/login" class="landing_box_link">Login</a>
-      <p class="landing_box_text">Already a member? Click here to log into your account!</p>
+    <div class="landing_box">
+      <div class="landing_box_link">
+        <a id="login" href="/login" class="landing_box_link_text">Login</a>
+        <i id="login_arrow" class="landing_box_link_arrow fas fa-long-arrow-alt-right" data-ref="login"></i>
+      </div>
+      <p class="landing_box_text">Already a member?<br> Click here to log into your account!</p>
     </div>
   </div>
 </div>
+<script src="/js/landing.js"></script>

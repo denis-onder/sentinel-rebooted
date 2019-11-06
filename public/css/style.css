@@ -6,7 +6,7 @@ body {
   margin: 0;
   padding: 0; }
   body #landing {
-    background-color: #333;
+    background-color: #031130;
     color: #fff;
     width: 100%;
     height: 100%;
@@ -26,6 +26,22 @@ body {
       display: grid;
       grid-template-columns: repeat(2, 1fr); }
       body #landing .landing_box_wrapper .landing_box {
-        border: 2px solid white;
+        border: 3px solid white;
         margin: 10px 20px;
-        padding: 2em; }
+        padding: 2em 3em;
+        transition: all ease-in-out 0.2s; }
+        body #landing .landing_box_wrapper .landing_box .landing_box_link .landing_box_link_text {
+          transition: all ease-in-out 0.2s;
+          text-decoration: none;
+          color: white;
+          font-size: 32px;
+          cursor: pointer; }
+        body #landing .landing_box_wrapper .landing_box .landing_box_link .landing_box_link_arrow {
+          transition: all ease-in-out 0.2s;
+          font-size: 28px;
+          margin-left: 10px; }
+        body #landing .landing_box_wrapper .landing_box:hover {
+          border-color: #04d9ed; }
+
+.hovering {
+  color: #04d9ed; }

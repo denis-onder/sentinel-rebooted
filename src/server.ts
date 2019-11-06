@@ -6,6 +6,7 @@ import config from "./config/config";
 import Router from "./router";
 import path from "path";
 import connectDB from "./db";
+import hbs from "express-handlebars";
 
 class Server {
   public app: express.Application;
@@ -14,9 +15,17 @@ class Server {
     this.config();
   }
   private config() {
+    this.app.use(express.static(path.join(__dirname, "../public")));
     this.app.set("views", path.join(__dirname, "../views"));
-    this.app.set("view engine", "jsx");
-    this.app.engine("jsx", require("express-react-views").createEngine());
+    this.app.engine(
+      "hbs",
+      hbs({
+        extname: "hbs",
+        defaultLayout: "layout",
+        layoutsDir: path.join(__dirname, "../views/layouts")
+      })
+    );
+    this.app.set("view engine", "hbs");
     this.app.use(cors());
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));

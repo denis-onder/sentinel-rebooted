@@ -6,7 +6,8 @@
   "scripts": {
     "compile": "tsc",
     "start": "npm run compile && node .",
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/index.ts",
+    "scss": "node-sass --watch public/scss -o public/css"
   },
   "repository": {
     "type": "git",
@@ -58,6 +59,7 @@
     "@types/validator": "^10.11.1",
     "concurrently": "^4.1.0",
     "dotenv": "^6.2.0",
+    "node-sass": "^4.13.0",
     "ts-node-dev": "^1.0.0-pre.43",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"

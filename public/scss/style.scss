@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
 body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   margin: 0;
-  padding: 0; }
-  body #landing {
+  padding: 0;
+  #landing {
     background-color: #333;
     color: #fff;
     width: 100%;
@@ -15,17 +16,22 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; }
-    body #landing .landing_header {
+    align-items: center;
+    .landing_header {
       text-transform: uppercase;
       letter-spacing: 10px;
-      font-size: 48px; }
-    body #landing .landing_box_wrapper {
+      font-size: 48px;
+    }
+    .landing_box_wrapper {
       display: flex;
       flex-direction: row;
       display: grid;
-      grid-template-columns: repeat(2, 1fr); }
-      body #landing .landing_box_wrapper .landing_box {
+      grid-template-columns: repeat(2, 1fr);
+      .landing_box {
         border: 2px solid white;
         margin: 10px 20px;
-        padding: 2em; }
+        padding: 2em;
+      }
+    }
+  }
+}

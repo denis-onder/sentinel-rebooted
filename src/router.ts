@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { AuthController, VaultController } from "./controllers";
 import { SuperRequest } from "./interfaces";
 import checkForVault from "./middleware/checkForVault";
+import validateInput from "./middleware/validateInput";
 // tslint:disable-next-line:no-var-requires
 const passport = require("passport");
 
@@ -20,10 +21,12 @@ class Router {
     );
   }
   private setAPIRoutes(): void {
-    this.router.post("/register", (req: Request, res: Response) =>
-      AuthController.register(req, res)
+    this.router.post(
+      "/register",
+      validateInput,
+      (req: Request, res: Response) => AuthController.register(req, res)
     );
-    this.router.post("/login", (req: Request, res: Response) =>
+    this.router.post("/login", validateInput, (req: Request, res: Response) =>
       AuthController.login(req, res)
     );
     this.router.get(

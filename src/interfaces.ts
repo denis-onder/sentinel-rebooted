@@ -35,11 +35,16 @@ interface SuperRequest extends Request {
   user: UserInterface;
 }
 
+interface InputValidator {
+  [key: string]: any;
+}
+
 export {
   UserLogin,
   UserRegister,
   Vault,
   UserInterface,
   SuperRequest,
-  VaultField
+  VaultField,
+  InputValidator
 };

@@ -2,12 +2,11 @@ const $ = id => document.getElementById(id).value || "";
 const submitButton = document.getElementById("submit_button");
 
 const showErrors = errObj => {
-  const output = document.getElementById("submit_button");
-  submitButton.disabled = true;
+  console.error(errObj);
   // Clear function
   const clear = () => {
+    const output = document.getElementById("error_handler");
     output.remove();
-    submitButton.disabled = false;
   };
   // Generate error handler
   const payload = `
@@ -34,7 +33,6 @@ const register = () => {
     password: $("password_input"),
     confirmPassword: $("confirm_password_input")
   };
-  console.log(data);
   axios
     .post("/register", data)
     .then(() => (window.location.href = "/login"))

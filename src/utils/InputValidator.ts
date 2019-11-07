@@ -26,7 +26,7 @@ class InputValidator {
     if (Object.keys(errors).length > 0) {
       return errors;
     }
-    return true;
+    return false;
   }
   public login(data: UserLogin) {
     let errors: any = {};
@@ -42,7 +42,7 @@ class InputValidator {
     if (Object.keys(errors).length > 0) {
       return errors;
     }
-    return true;
+    return false;
   }
 }
 

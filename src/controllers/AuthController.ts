@@ -11,7 +11,6 @@ import generateToken from "../utils/generateToken";
 
 class AuthController {
   public async register(req: Request, res: Response) {
-    console.log(req.body);
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (user)

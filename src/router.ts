@@ -7,13 +7,23 @@ const passport = require("passport");
 
 class Router {
   public router: express.Router = express.Router();
+  private opts: any;
   constructor() {
-    this.config();
+    this.opts = {
+      passport: passport.authenticate("jwt", { session: false })
+    };
+    this.setAPIRoutes();
+    this.setViewEndpoints();
   }
-  private config(): void {
+  private setViewEndpoints(): void {
     this.router.get("/", (req: Request, res: Response) =>
-      res.render("pages/landing", { title: "Sentinel - Landing" })
+      res.render("pages/landing", { title: "Landing" })
     );
+    this.router.get("/register", (req: Request, res: Response) =>
+      res.render("pages/register", { title: "Register" })
+    );
+  }
+  private setAPIRoutes(): void {
     this.router.post("/register", (req: Request, res: Response) =>
       AuthController.register(req, res)
     );
@@ -22,24 +32,24 @@ class Router {
     );
     this.router.get(
       "/current",
-      passport.authenticate("jwt", { session: false }),
+      this.opts.passport,
       (req: SuperRequest, res: Response) => AuthController.current(req, res)
     );
     this.router.post(
       "/vault/create",
-      passport.authenticate("jwt", { session: false }),
+      this.opts.passport,
       (req: SuperRequest, res: Response) =>
         VaultController.createVault(req, res)
     );
     this.router.get(
       "/vault/get",
-      passport.authenticate("jwt", { session: false }),
+      this.opts.passport,
       checkForVault,
       (req: SuperRequest, res: Response) => VaultController.openVault(req, res)
     );
     this.router.put(
       "/vault/add",
-      passport.authenticate("jwt", { session: false }),
+      this.opts.passport,
       checkForVault,
       (req: SuperRequest, res: Response) => VaultController.addField(req, res)
     );

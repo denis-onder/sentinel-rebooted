@@ -11,7 +11,7 @@ import generateToken from "../utils/generateToken";
 
 class AuthController {
   public async register(req: Request, res: Response) {
-    const email = req.body.email;
+    const { email } = req.body;
     const user = await User.findOne({ email });
     if (user)
       return res.status(403).json({ error: "This email address is in use." });
@@ -25,6 +25,7 @@ class AuthController {
     new User(data).save().then(sendUser);
   }
   public async login(req: Request, res: Response) {
+    console.log(req.body);
     const { email } = req.body;
     const user: any = await User.findOne({ email });
     if (!user)

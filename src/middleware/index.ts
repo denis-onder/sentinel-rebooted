@@ -16,7 +16,7 @@ export default (app: express.Application): void => {
     "hbs",
     hbs({
       extname: "hbs",
-      defaultLayout: "layout",
+      defaultLayout: "default",
       layoutsDir: path.join(__dirname, "../../views/layouts")
     })
   );

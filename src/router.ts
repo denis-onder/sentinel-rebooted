@@ -7,11 +7,7 @@ const passport = require("passport");
 
 class Router {
   public router: express.Router = express.Router();
-  private opts: any;
   constructor() {
-    this.opts = {
-      passport: passport.authenticate("jwt", { session: false })
-    };
     this.setAPIRoutes();
     this.setViewEndpoints();
   }
@@ -32,24 +28,24 @@ class Router {
     );
     this.router.get(
       "/current",
-      this.opts.passport,
+      passport.authenticate("jwt", { session: false }),
       (req: SuperRequest, res: Response) => AuthController.current(req, res)
     );
     this.router.post(
       "/vault/create",
-      this.opts.passport,
+      passport.authenticate("jwt", { session: false }),
       (req: SuperRequest, res: Response) =>
         VaultController.createVault(req, res)
     );
     this.router.get(
       "/vault/get",
-      this.opts.passport,
+      passport.authenticate("jwt", { session: false }),
       checkForVault,
       (req: SuperRequest, res: Response) => VaultController.openVault(req, res)
     );
     this.router.put(
       "/vault/add",
-      this.opts.passport,
+      passport.authenticate("jwt", { session: false }),
       checkForVault,
       (req: SuperRequest, res: Response) => VaultController.addField(req, res)
     );

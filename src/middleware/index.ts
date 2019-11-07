@@ -1,5 +1,4 @@
 import bodyParser from "body-parser";
-import cors from "cors";
 import express from "express";
 import hbs from "express-handlebars";
 import PassportJSConfig from "../config/passport";
@@ -7,6 +6,9 @@ import path from "path";
 import Router from "../router";
 
 export default (app: express.Application): void => {
+  // Body Parser
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
   // Serve static files
   app.use(express.static(path.join(__dirname, "../../public")));
   // Set views folder
@@ -25,8 +27,5 @@ export default (app: express.Application): void => {
   app.use(Router);
   // Passport
   PassportJSConfig.init(app);
-  // Other middleware
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(cors());
+  // Other middleware can be added here
 };

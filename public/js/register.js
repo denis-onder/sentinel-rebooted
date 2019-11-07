@@ -1,16 +1,20 @@
 const $ = id => document.getElementById(id).value || "";
+const submitButton = document.getElementById("submit_button");
 
 const showErrors = errObj => {
+  const output = document.getElementById("submit_button");
+  submitButton.disabled = true;
   // Clear function
-  const clear = () => $("error_handler").remove();
-  // If the error handler is up, remove it first
-  if ($("error_handler")) clear();
+  const clear = () => {
+    output.remove();
+    submitButton.disabled = false;
+  };
   // Generate error handler
   const payload = `
   <div id="error_handler">
     <i class="fas fa-times error_handler_x"></i>
     <div class="error_handler_output">
-      ${Object.keys(errMessages).map(
+      ${Object.keys(errObj).map(
         k => `<p class="error_handler_output_line">${errObj[k]}</p>`
       )}
     </div>
@@ -22,7 +26,7 @@ const showErrors = errObj => {
   setTimeout(clear, 5000);
 };
 
-const register = async () => {
+const register = () => {
   const data = {
     firstName: $("first_name_input"),
     lastName: $("last_name_input"),
@@ -30,10 +34,11 @@ const register = async () => {
     password: $("password_input"),
     confirmPassword: $("confirm_password_input")
   };
-  const res = await fetch("/register", { method: "POST" }, data);
-  const payload = await res.json();
-  if (res.status !== 200) return showErrors(payload);
-  window.location.href = "/login";
+  console.log(data);
+  axios
+    .post("/register", data)
+    .then(() => (window.location.href = "/login"))
+    .catch(err => showErrors(err.response.data));
 };
 
-document.getElementById("submit_button").addEventListener("click", register);
+submitButton.addEventListener("click", register);

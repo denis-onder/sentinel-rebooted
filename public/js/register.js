@@ -32,8 +32,8 @@ const register = async () => {
   };
   const res = await fetch("/register", { method: "POST" }, data);
   const payload = await res.json();
-  if (res.status !== 200) showErrors(payload);
-  console.log(`Registered`);
+  if (res.status !== 200) return showErrors(payload);
+  window.location.href = "/login";
 };
 
 document.getElementById("submit_button").addEventListener("click", register);

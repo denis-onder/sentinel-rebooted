@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+#registration {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row; }
+  #registration #registration_info {
+    background-color: #031130;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    #registration #registration_info .registration_info_header {
+      text-transform: uppercase;
+      letter-spacing: 10px;
+      font-size: 48px;
+      font-family: "Montserrat", Arial, Helvetica, sans-serif;
+      color: white; }
+    #registration #registration_info .registration_info_text {
+      font-size: 26px;
+      color: white;
+      font-family: "Montserrat", Arial, Helvetica, sans-serif;
+      text-align: center; }
+  #registration #registration_form {
+    background-color: #fff;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    #registration #registration_form .registration_form_wrapper {
+      width: 90%;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px; }
+      #registration #registration_form .registration_form_wrapper .div1 {
+        grid-area: 1 / 1 / 2 / 3; }
+      #registration #registration_form .registration_form_wrapper .div2 {
+        grid-area: 1 / 4 / 2 / 6; }
+      #registration #registration_form .registration_form_wrapper .div3 {
+        grid-area: 3 / 1 / 4 / 6; }
+      #registration #registration_form .registration_form_wrapper .div4 {
+        grid-area: 5 / 1 / 6 / 3; }
+      #registration #registration_form .registration_form_wrapper .div5 {
+        grid-area: 5 / 4 / 6 / 6; }
+    #registration #registration_form .registration_form_input {
+      display: flex;
+      flex-direction: column; }
+      #registration #registration_form .registration_form_input label {
+        font-family: "Montserrat", Arial, Helvetica, sans-serif;
+        margin-bottom: 10px;
+        font-size: 18px; }
+      #registration #registration_form .registration_form_input input {
+        padding: 0;
+        height: 36px;
+        padding: 5px 10px;
+        border: 3px solid #a8a8a8;
+        border-radius: 10px;
+        transition: all ease-in-out 0.1s;
+        font-family: "Montserrat", Arial, Helvetica, sans-serif; }
+        #registration #registration_form .registration_form_input input:focus {
+          border-color: #031130; }

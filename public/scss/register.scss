@@ -1,0 +1,81 @@
+@import "./imports/_vars_imports";
+
+#registration {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  #registration_info {
+    background-color: $primary_color;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .registration_info_header {
+      text-transform: uppercase;
+      letter-spacing: 10px;
+      font-size: 48px;
+      font-family: $fonts;
+      color: white;
+    }
+    .registration_info_text {
+      font-size: 26px;
+      color: white;
+      font-family: $fonts;
+      text-align: center;
+    }
+  }
+  #registration_form {
+    background-color: #fff;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .registration_form_wrapper {
+      width: 90%;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+      .div1 {
+        grid-area: 1 / 1 / 2 / 3;
+      }
+      .div2 {
+        grid-area: 1 / 4 / 2 / 6;
+      }
+      .div3 {
+        grid-area: 3 / 1 / 4 / 6;
+      }
+      .div4 {
+        grid-area: 5 / 1 / 6 / 3;
+      }
+      .div5 {
+        grid-area: 5 / 4 / 6 / 6;
+      }
+    }
+    .registration_form_input {
+      display: flex;
+      flex-direction: column;
+      label {
+        font-family: $fonts;
+        margin-bottom: 10px;
+        font-size: 18px;
+      }
+      input {
+        padding: 0;
+        height: 36px;
+        padding: 5px 10px;
+        border: 3px solid rgb(168, 168, 168);
+        border-radius: 10px;
+        transition: all ease-in-out 0.1s;
+        font-family: $fonts;
+        &:focus {
+          border-color: $primary_color;
+        }
+      }
+    }
+  }
+}

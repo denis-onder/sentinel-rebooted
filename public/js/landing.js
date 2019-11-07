@@ -1,5 +1,6 @@
 const elements = document.querySelectorAll(".landing_box_link_text");
 
+// Hover event
 elements.forEach(elem => {
   // Add class
   elem.addEventListener("mouseover", e => {

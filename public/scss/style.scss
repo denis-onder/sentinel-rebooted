@@ -1,7 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
-
-$primary_color: #031130;
-$secondary_color: #04d9ed;
+@import "./imports/_vars_imports";
 
 body {
   width: 100vw;
@@ -9,54 +6,4 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  #landing {
-    background-color: $primary_color;
-    color: #fff;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-family: "Montserrat", Arial, Helvetica, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .landing_header {
-      text-transform: uppercase;
-      letter-spacing: 10px;
-      font-size: 48px;
-    }
-    .landing_box_wrapper {
-      display: flex;
-      flex-direction: row;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      .landing_box {
-        border: 3px solid white;
-        margin: 10px 20px;
-        padding: 2em 3em;
-        transition: all ease-in-out 0.2s;
-        .landing_box_link {
-          .landing_box_link_text {
-            transition: all ease-in-out 0.2s;
-            text-decoration: none;
-            color: white;
-            font-size: 32px;
-            cursor: pointer;
-          }
-          .landing_box_link_arrow {
-            transition: all ease-in-out 0.2s;
-            font-size: 28px;
-            margin-left: 10px;
-          }
-        }
-        &:hover {
-          border-color: $secondary_color;
-        }
-      }
-    }
-  }
-}
-
-.hovering {
-  color: $secondary_color;
 }

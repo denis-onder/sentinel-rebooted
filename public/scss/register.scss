@@ -36,8 +36,7 @@
     .registration_form_wrapper {
       width: 90%;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: repeat(5, 1fr);
+      grid-template-rows: repeat(6, 1fr);
       grid-column-gap: 0px;
       grid-row-gap: 0px;
       .div1 {
@@ -54,6 +53,9 @@
       }
       .div5 {
         grid-area: 5 / 4 / 6 / 6;
+      }
+      .div6 {
+        grid-area: 6 / 1 / 6 / 6;
       }
     }
     .registration_form_input {
@@ -75,6 +77,23 @@
         &:focus {
           border-color: $primary_color;
         }
+      }
+    }
+    .registration_form_submit {
+      display: block;
+      margin-top: 25px;
+      outline: none;
+      background-color: white;
+      border-radius: 10px;
+      transition: all ease-in-out 0.1s;
+      font-family: $fonts;
+      font-size: 20px;
+      color: black;
+      border: 3px solid $primary_color;
+      cursor: pointer;
+      &:hover {
+        background-color: $primary_color;
+        color: white;
       }
     }
   }

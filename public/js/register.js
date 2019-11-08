@@ -2,7 +2,6 @@ const $ = id => document.getElementById(id).value || "";
 const submitButton = document.getElementById("submit_button");
 
 const showErrors = errObj => {
-  console.error(errObj);
   // Clear function
   const clear = () => {
     const output = document.getElementById("error_handler");

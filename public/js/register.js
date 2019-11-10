@@ -1,12 +1,15 @@
 const $ = id => document.getElementById(id).value || "";
 const submitButton = document.getElementById("submit_button");
+const wrapper = document.getElementById("error_handler_wrapper");
 
 const showErrors = errObj => {
   // Clear function
   const clear = () => {
-    const output = document.getElementById("error_handler");
-    output.remove();
+    wrapper.innerHTML = "";
+    submitButton.disabled = "";
   };
+  // Disable registration button
+  submitButton.disabled = "disabled";
   // Generate error handler
   const payload = `
   <div id="error_handler">
@@ -17,14 +20,18 @@ const showErrors = errObj => {
       )}
     </div>
   </div>
-`;
-  document.body.innerHTML += payload;
+`
+    .split(",")
+    .join("");
+
+  wrapper.innerHTML += payload;
   // Remove element after animation is done.
   // The animation lasts for 5 seconds, hence the 5000ms timeout.
   setTimeout(clear, 5000);
 };
 
-const register = () => {
+const register = e => {
+  e.preventDefault();
   const data = {
     firstName: $("first_name_input"),
     lastName: $("last_name_input"),
@@ -38,4 +45,4 @@ const register = () => {
     .catch(err => showErrors(err.response.data));
 };
 
-submitButton.addEventListener("click", register);
+(() => submitButton.addEventListener("click", register))();

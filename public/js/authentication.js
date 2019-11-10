@@ -30,19 +30,26 @@ const showErrors = errObj => {
   setTimeout(clear, 5000);
 };
 
-const register = e => {
+const auth = e => {
+  const path = window.location.pathname;
+  if (path !== "/register" && path !== "/login") return false;
   e.preventDefault();
   const data = {
-    firstName: $("first_name_input"),
-    lastName: $("last_name_input"),
     email: $("email_input"),
-    password: $("password_input"),
-    confirmPassword: $("confirm_password_input")
+    password: $("password_input")
   };
+  if (path === "/register") {
+    (data.firstName = $("first_name_input")),
+      (data.lastName = $("last_name_input")),
+      (data.confirmPassword = $("confirm_password_input"));
+  }
   axios
-    .post("/register", data)
-    .then(() => (window.location.href = "/login"))
+    .post(path, data)
+    .then(() => {
+      if (path === "/register") return (window.location.href = "/login");
+      return (window.location.href = "/dashboard");
+    })
     .catch(err => showErrors(err.response.data));
 };
 
-(() => submitButton.addEventListener("click", register))();
+(() => submitButton.addEventListener("click", auth))();

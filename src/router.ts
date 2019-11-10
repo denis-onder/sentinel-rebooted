@@ -19,6 +19,9 @@ class Router {
     this.router.get("/register", (req: Request, res: Response) =>
       res.render("pages/register", { title: "Register" })
     );
+    this.router.get("/login", (req: Request, res: Response) =>
+      res.render("pages/login", { title: "Login" })
+    );
   }
   private setAPIRoutes(): void {
     this.router.post(

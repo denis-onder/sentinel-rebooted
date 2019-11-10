@@ -1,60 +1,74 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
-#registration {
+#authentication {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row; }
-  #registration #registration_info {
+  #authentication #authentication_info {
     background-color: #031130;
     width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; }
-    #registration #registration_info .registration_info_header {
+    #authentication #authentication_info .authentication_info_header {
       text-transform: uppercase;
       letter-spacing: 10px;
       font-size: 48px;
       font-family: "Montserrat", Arial, Helvetica, sans-serif;
       color: white; }
-    #registration #registration_info .registration_info_text {
+    #authentication #authentication_info .authentication_info_text {
       font-size: 26px;
       color: white;
       font-family: "Montserrat", Arial, Helvetica, sans-serif;
       text-align: center; }
-  #registration #registration_form {
+  #authentication #authentication_form {
     background-color: #fff;
     width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; }
-    #registration #registration_form .registration_form_wrapper {
+    #authentication #authentication_form .authentication_form_wrapper[data-view="login"] {
       width: 90%;
       display: grid;
-      grid-template-rows: repeat(6, 1fr);
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(5, 1fr);
       grid-column-gap: 0px;
       grid-row-gap: 0px; }
-      #registration #registration_form .registration_form_wrapper .div1 {
-        grid-area: 1 / 1 / 2 / 3; }
-      #registration #registration_form .registration_form_wrapper .div2 {
-        grid-area: 1 / 4 / 2 / 6; }
-      #registration #registration_form .registration_form_wrapper .div3 {
+      #authentication #authentication_form .authentication_form_wrapper[data-view="login"] .div1 {
+        grid-area: 1 / 1 / 2 / 6; }
+      #authentication #authentication_form .authentication_form_wrapper[data-view="login"] .div2 {
         grid-area: 3 / 1 / 4 / 6; }
-      #registration #registration_form .registration_form_wrapper .div4 {
-        grid-area: 5 / 1 / 6 / 3; }
-      #registration #registration_form .registration_form_wrapper .div5 {
-        grid-area: 5 / 4 / 6 / 6; }
-      #registration #registration_form .registration_form_wrapper .div6 {
-        grid-area: 6 / 1 / 6 / 6; }
-    #registration #registration_form .registration_form_input {
+      #authentication #authentication_form .authentication_form_wrapper[data-view="login"] .div3 {
+        grid-area: 5 / 1 / 6 / 6; }
+    #authentication #authentication_form .authentication_form_wrapper[data-view="register"] {
+      width: 90%;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(7, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px; }
+      #authentication #authentication_form .authentication_form_wrapper[data-view="register"] .div1 {
+        grid-area: 1 / 1 / 2 / 4; }
+      #authentication #authentication_form .authentication_form_wrapper[data-view="register"] .div2 {
+        grid-area: 1 / 5 / 2 / 8; }
+      #authentication #authentication_form .authentication_form_wrapper[data-view="register"] .div3 {
+        grid-area: 3 / 1 / 4 / 8; }
+      #authentication #authentication_form .authentication_form_wrapper[data-view="register"] .div4 {
+        grid-area: 5 / 1 / 6 / 4; }
+      #authentication #authentication_form .authentication_form_wrapper[data-view="register"] .div5 {
+        grid-area: 5 / 5 / 6 / 8; }
+      #authentication #authentication_form .authentication_form_wrapper[data-view="register"] .div6 {
+        grid-area: 7 / 1 / 8 / 8; }
+    #authentication #authentication_form .authentication_form_input {
       display: flex;
       flex-direction: column; }
-      #registration #registration_form .registration_form_input label {
+      #authentication #authentication_form .authentication_form_input label {
         font-family: "Montserrat", Arial, Helvetica, sans-serif;
         margin-bottom: 10px;
         font-size: 18px; }
-      #registration #registration_form .registration_form_input input {
+      #authentication #authentication_form .authentication_form_input input {
         padding: 0;
         height: 36px;
         padding: 5px 10px;
@@ -62,9 +76,9 @@
         border-radius: 10px;
         transition: all ease-in-out 0.1s;
         font-family: "Montserrat", Arial, Helvetica, sans-serif; }
-        #registration #registration_form .registration_form_input input:focus {
+        #authentication #authentication_form .authentication_form_input input:focus {
           border-color: #031130; }
-    #registration #registration_form .registration_form_submit {
+    #authentication #authentication_form .authentication_form_submit {
       display: block;
       margin-top: 25px;
       outline: none;
@@ -76,14 +90,14 @@
       color: black;
       border: 3px solid #031130;
       cursor: pointer; }
-      #registration #registration_form .registration_form_submit:hover {
+      #authentication #authentication_form .authentication_form_submit:hover {
         background-color: #031130;
         color: white; }
-    #registration #registration_form .registration_form_submit[disabled=""] {
+    #authentication #authentication_form .authentication_form_submit[disabled=""] {
       background-color: #e22222;
       border-color: #e22222;
       color: white; }
-      #registration #registration_form .registration_form_submit[disabled=""]:hover {
+      #authentication #authentication_form .authentication_form_submit[disabled=""]:hover {
         animation: shake 0.5s;
         animation-iteration-count: infinite; }
 

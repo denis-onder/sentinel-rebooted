@@ -23,6 +23,9 @@ class InputValidator {
       errors.passwordLength =
         "Your password should be between 8 and 32 characters long.";
     }
+    if (data.password !== data.confirmPassword) {
+      errors.passwordsNotMatching = "Your passwords are not matching.";
+    }
     if (Object.keys(errors).length > 0) {
       return errors;
     }

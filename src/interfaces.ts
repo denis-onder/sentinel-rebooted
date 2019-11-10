@@ -1,5 +1,4 @@
 import { Request } from "express";
-import { WordArray } from "crypto-js";
 
 interface UserLogin {
   email: string;
@@ -9,6 +8,7 @@ interface UserLogin {
 interface UserRegister extends UserLogin {
   firstName: string;
   lastName: string;
+  confirmPassword?: string;
 }
 
 interface UserInterface {

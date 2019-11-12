@@ -11,7 +11,6 @@ export default (req: Request, res: Response, next: NextFunction) => {
     res.redirect("/login");
   };
   const cookie = req.cookies.auth;
-  console.log(cookie);
   if (!cookie) return redirect();
   jwt.verify(cookie, config.secret, (err: any, _: any) =>
     err ? redirect() : setCookieAsAuthHeader()

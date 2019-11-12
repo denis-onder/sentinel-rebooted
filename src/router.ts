@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { AuthController, VaultController } from "./controllers";
+import cookieMiddleware from "./middleware/cookieMiddleware";
 import { SuperRequest } from "./interfaces";
 import checkForVault from "./middleware/checkForVault";
 import validateInput from "./middleware/validateInput";
@@ -21,6 +22,15 @@ class Router {
     );
     this.router.get("/login", (req: Request, res: Response) =>
       res.render("pages/login", { title: "Login" })
+    );
+    this.router.get(
+      "/dashboard",
+      cookieMiddleware,
+      passport.authenticate("jwt", {
+        session: false
+      }),
+      (req: Request, res: Response) =>
+        res.render("pages/dashboard", { title: "Dashboard" })
     );
   }
   private setAPIRoutes(): void {

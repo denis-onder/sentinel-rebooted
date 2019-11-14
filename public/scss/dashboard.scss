@@ -58,4 +58,29 @@
   -webkit-box-shadow: 0px 0px 10px 5px rgba(10, 10, 10, 0.6);
   -moz-box-shadow: 0px 0px 10px 5px rgba(10, 10, 10, 0.6);
   box-shadow: 0px 0px 10px 5px rgba(10, 10, 10, 0.6);
+  .drawer_opt {
+    width: 100%;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    transition: all ease-in-out 0.2s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1em 0;
+    cursor: pointer;
+    .drawer_opt_icon {
+      font-size: 48px;
+      color: white;
+      margin: 0 10px;
+    }
+    .drawer_opt_name {
+      font-size: 26px;
+      color: white;
+      font-family: $fonts;
+    }
+    &:hover {
+      border-bottom-color: $secondary_color;
+      border-top-color: $secondary_color;
+    }
+  }
 }

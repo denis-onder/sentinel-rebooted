@@ -28,7 +28,7 @@ class VaultController {
     const vault: any = await Vault.findOne({ user: req.user.id });
     if (!compareSync(req.body.password, vault.masterPassword))
       return res.status(403).json({ error: "Invalid master password." });
-    return res.status(200).json(vault.fields);
+    return res.status(200).json(vault);
   }
   public async addField(req: SuperRequest, res: Response) {
     const vault: any = await Vault.findOne({ user: req.user.id });

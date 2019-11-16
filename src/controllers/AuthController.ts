@@ -37,7 +37,12 @@ class AuthController {
     };
     if (!bcryptjs.compareSync(credentials.password, user.password))
       return res.status(403).json({ error: "Invalid password." });
-    const token = generateToken({ id: user.id });
+    const token = generateToken({
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email
+    });
     res.cookie("auth", token);
     return res.status(200).json({ token });
   }

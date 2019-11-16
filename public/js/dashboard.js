@@ -1,3 +1,6 @@
+const $ = id => document.getElementById(id);
+const output = $("output");
+
 function getToken() {
   const cookies = document.cookie.split(";");
   const name = "auth=";
@@ -7,6 +10,12 @@ function getToken() {
       return `Bearer ${temp.substring(name.length, temp.length)}`;
   }
   return false;
+}
+
+function showFields(vault) {
+  vault.map(({ emailOrUsername, password, service }) => {
+    output.innerHTML += `<div class><p>${emailOrUsername}</p></div>`;
+  });
 }
 
 const getVault = ({ exists }) => {
@@ -26,13 +35,13 @@ const getVault = ({ exists }) => {
       password: "test1234"
     })
   })
-    .then(async res => console.log(await res.json()))
+    .then(async res => showFields(await res.json()))
     .catch(err => console.error(err));
 };
 
 (() => {
-  const btn = document.getElementById("dashboard_nav_menu_button");
-  const drawer = document.getElementById("drawer");
+  const btn = $("dashboard_nav_menu_button");
+  const drawer = $("drawer");
   // Button listener
   btn.onclick = () => {
     drawer.classList.toggle("open");

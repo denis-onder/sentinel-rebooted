@@ -29,8 +29,12 @@ class Router {
       passport.authenticate("jwt", {
         session: false
       }),
-      (req: Request, res: Response) =>
-        res.render("pages/dashboard", { title: "Dashboard" })
+      (req: SuperRequest, res: Response) =>
+        res.render("pages/dashboard", {
+          title: "Dashboard",
+          firstName: req.user.firstName,
+          lastName: req.user.lastName
+        })
     );
   }
   private setAPIRoutes(): void {

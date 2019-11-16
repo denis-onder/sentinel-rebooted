@@ -35,9 +35,13 @@
         transition: all ease-in-out 0.2s; }
         #dashboard .dashboard_nav .dashboard_nav_menu .dashboard_nav_menu_button:hover {
           color: #04d9ed; }
+      #dashboard .dashboard_nav .dashboard_nav_menu .dashboard_nav_menu_button[data-isopen=""] {
+        color: #04d9ed; }
 
 #drawer {
-  width: 20%;
+  transition: all ease-in-out 0.2s;
+  transform: translateX(-100%);
+  width: 10%;
   height: 100%;
   position: fixed;
   top: 0;
@@ -61,13 +65,16 @@
     padding: 1em 0;
     cursor: pointer; }
     #drawer .drawer_opt .drawer_opt_icon {
-      font-size: 48px;
+      font-size: 36px;
       color: white;
       margin: 0 10px; }
     #drawer .drawer_opt .drawer_opt_name {
-      font-size: 26px;
+      font-size: 24px;
       color: white;
       font-family: "Montserrat", Arial, Helvetica, sans-serif; }
     #drawer .drawer_opt:hover {
       border-bottom-color: #04d9ed;
       border-top-color: #04d9ed; }
+
+.open {
+  transform: translateX(0) !important; }

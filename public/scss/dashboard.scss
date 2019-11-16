@@ -40,12 +40,17 @@
           color: $secondary_color;
         }
       }
+      .dashboard_nav_menu_button[data-isopen=""] {
+        color: $secondary_color;
+      }
     }
   }
 }
 
 #drawer {
-  width: 20%;
+  transition: all ease-in-out 0.2s;
+  transform: translateX(-100%);
+  width: 10%;
   height: 100%;
   position: fixed;
   top: 0;
@@ -69,12 +74,12 @@
     padding: 1em 0;
     cursor: pointer;
     .drawer_opt_icon {
-      font-size: 48px;
+      font-size: 36px;
       color: white;
       margin: 0 10px;
     }
     .drawer_opt_name {
-      font-size: 26px;
+      font-size: 24px;
       color: white;
       font-family: $fonts;
     }
@@ -83,4 +88,8 @@
       border-top-color: $secondary_color;
     }
   }
+}
+
+.open {
+  transform: translateX(0) !important;
 }

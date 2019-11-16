@@ -7,7 +7,8 @@
     "compile": "tsc",
     "start": "npm run compile && node .",
     "dev": "ts-node-dev src/index.ts",
-    "scss": "node-sass --watch public/scss -o public/css"
+    "scss": "node-sass public/scss -o public/css",
+    "scss:watch": "node-sass --watch public/scss -o public/css"
   },
   "repository": {
     "type": "git",

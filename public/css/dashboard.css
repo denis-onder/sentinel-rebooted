@@ -41,6 +41,20 @@
           color: #04d9ed; }
       #dashboard .dashboard_nav .dashboard_nav_menu .dashboard_nav_menu_button[data-isopen=""] {
         color: #04d9ed; }
+  #dashboard #output {
+    width: 90%; }
+    #dashboard #output .output_field {
+      border-radius: 5px;
+      padding: 1em;
+      margin-bottom: 25px;
+      width: 100%;
+      background: #2222a8;
+      background: linear-gradient(159deg, #2222a8 0%, #1a4eba 50%, #0ba9b8 100%);
+      background: #2222a8;
+      background: linear-gradient(159deg, #2222a8 0%, #1a4eba 65%, #0ba9b8 100%); }
+      #dashboard #output .output_field .output_field_text {
+        font-family: "Montserrat", Arial, Helvetica, sans-serif;
+        color: #fff; }
 
 #drawer {
   transition: all ease-in-out 0.2s;

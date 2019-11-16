@@ -14,9 +14,9 @@ function getToken(cookie) {
 
 function showFields({ fields, masterPassword: master }) {
   fields.map(({ emailOrUsername, password, service }) => {
-    output.innerHTML += `<div class>
-    <p>${service}</p>
-    <p>${emailOrUsername}</p>
+    output.innerHTML += `<div class="output_field">
+    <p class="output_field_text">${service}</p>
+    <p class="output_field_text">${emailOrUsername}</p>
     <p class="output_field_password">${password}</p>
     </div>`;
     // Use the master for decrypting password fields

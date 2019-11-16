@@ -49,6 +49,33 @@
       }
     }
   }
+  #output {
+    width: 90%;
+    .output_field {
+      border-radius: 5px;
+      padding: 1em;
+      margin-bottom: 25px;
+      width: 100%;
+      background: rgb(34, 34, 168);
+      background: linear-gradient(
+        159deg,
+        rgba(34, 34, 168, 1) 0%,
+        rgba(26, 78, 186, 1) 50%,
+        rgba(11, 169, 184, 1) 100%
+      );
+      background: rgb(34, 34, 168);
+      background: linear-gradient(
+        159deg,
+        rgba(34, 34, 168, 1) 0%,
+        rgba(26, 78, 186, 1) 65%,
+        rgba(11, 169, 184, 1) 100%
+      );
+      .output_field_text {
+        font-family: $fonts;
+        color: #fff;
+      }
+    }
+  }
 }
 
 #drawer {

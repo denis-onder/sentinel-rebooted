@@ -5,6 +5,14 @@ import { hashSync, compareSync } from "bcryptjs";
 import cryptojs from "crypto-js";
 
 class VaultController {
+  public checkForVault(req: SuperRequest, res: Response) {
+    Vault.findOne({ user: req.user.id })
+      .then(vault => {
+        if (vault) return res.status(200).json({ exists: true });
+        return res.status(404).json({ exists: false });
+      })
+      .catch(err => console.error(err));
+  }
   public async createVault(req: SuperRequest, res: Response) {
     const vault = await Vault.findOne({ user: req.user.id });
     if (vault)

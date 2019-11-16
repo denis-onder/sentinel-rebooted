@@ -47,14 +47,20 @@ class Router {
       passport.authenticate("jwt", { session: false }),
       (req: SuperRequest, res: Response) => AuthController.current(req, res)
     );
+    this.router.get(
+      "/vault/check",
+      passport.authenticate("jwt", { session: false }),
+      (req: SuperRequest, res: Response) =>
+        VaultController.checkForVault(req, res)
+    );
     this.router.post(
       "/vault/create",
       passport.authenticate("jwt", { session: false }),
       (req: SuperRequest, res: Response) =>
         VaultController.createVault(req, res)
     );
-    this.router.get(
-      "/vault/get",
+    this.router.post(
+      "/vault/open",
       passport.authenticate("jwt", { session: false }),
       checkForVault,
       (req: SuperRequest, res: Response) => VaultController.openVault(req, res)

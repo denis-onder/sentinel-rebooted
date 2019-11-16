@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "compile": "tsc",
-    "start": "npm run compile && node .",
-    "dev": "ts-node-dev src/index.ts",
     "scss": "node-sass public/scss -o public/css",
-    "scss:watch": "node-sass --watch public/scss -o public/css"
+    "scss:watch": "node-sass --watch public/scss -o public/css",
+    "start": "npm run compile && npm run scss && node .",
+    "dev": "npm run scss && ts-node-dev src/index.ts"
   },
   "repository": {
     "type": "git",

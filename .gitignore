@@ -1,5 +1,6 @@
 /node_modules
 /dist
+/public/css
 git.sh
 .env
 package-lock.json

@@ -2,6 +2,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import express from "express";
 import hbs from "express-handlebars";
+import helmet from "helmet";
 import PassportJSConfig from "../config/passport";
 import path from "path";
 import Router from "../router";
@@ -31,4 +32,5 @@ export default (app: express.Application): void => {
   // Passport
   PassportJSConfig.init(app);
   // Other middleware can be added here
+  app.use(helmet());
 };

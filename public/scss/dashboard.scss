@@ -46,6 +46,8 @@
       }
       .dashboard_nav_menu_button[data-isopen=""] {
         color: $secondary_color;
+        transform: rotate(90deg);
+        transform-origin: center center;
       }
     }
   }

@@ -77,6 +77,25 @@
         font-family: $fonts;
         color: #fff;
       }
+      .output_field_password {
+        font-family: $fonts;
+        font-weight: bold;
+        width: 100%;
+        padding: 5px;
+        outline: none;
+        border: 1px solid $primary_color;
+        background-color: $primary_color;
+        border-radius: 5px;
+        color: $secondary_color;
+        font-size: 16px;
+        &[type="password"] {
+          cursor: pointer;
+        }
+      }
+      .output_field_wrapper {
+        width: 25%;
+        margin: 0 10px;
+      }
     }
   }
 }

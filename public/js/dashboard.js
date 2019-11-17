@@ -20,7 +20,7 @@ function showFields({ fields, masterPassword: master }) {
         <p class="output_field_text">${emailOrUsername}</p>
       </div>
       <div class="output_field_wrapper">
-        <input class="output_field_password" value="${password}" readonly />
+        <input type="password" class="output_field_password" value="${password}" readonly />
       </div>
     </div>`;
     // Use the master for decrypting password fields
@@ -37,9 +37,12 @@ function showFields({ fields, masterPassword: master }) {
     //   };
     // })();
     function revealPassword(e) {
-      e.target.value = CryptoJS.AES.decrypt(e.target.value, master).toString(
-        CryptoJS.enc.Utf8
-      );
+      if (e.target.type !== "text") {
+        e.target.type = "text";
+        e.target.value = CryptoJS.AES.decrypt(e.target.value, master).toString(
+          CryptoJS.enc.Utf8
+        );
+      }
     }
     // Attach listeners on password fields
     Array.from(

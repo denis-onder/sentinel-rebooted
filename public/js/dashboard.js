@@ -24,18 +24,6 @@ function showFields({ fields, masterPassword: master }) {
       </div>
     </div>`;
     // Use the master for decrypting password fields
-    // const revealPassword = (e => {
-    //   let executed = false;
-    //   return function() {
-    //     if (!executed) {
-    //       executed = true;
-    //       e.target.value = CryptoJS.AES.decrypt(
-    //         e.target.value,
-    //         master
-    //       ).toString(CryptoJS.enc.Utf8);
-    //     }
-    //   };
-    // })();
     function revealPassword(e) {
       if (e.target.type !== "text") {
         e.target.type = "text";

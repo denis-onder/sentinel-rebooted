@@ -15,16 +15,31 @@ function getToken(cookie) {
 function showFields({ fields, masterPassword: master }) {
   fields.map(({ emailOrUsername, password, service }) => {
     output.innerHTML += `<div class="output_field">
-    <p class="output_field_text">${service}</p>
-    <p class="output_field_text">${emailOrUsername}</p>
-    <p class="output_field_password">${password}</p>
+      <div class="output_field_wrapper">
+        <p class="output_field_text">${service}</p>
+        <p class="output_field_text">${emailOrUsername}</p>
+      </div>
+      <div class="output_field_wrapper">
+        <input class="output_field_password" value="${password}" readonly />
+      </div>
     </div>`;
     // Use the master for decrypting password fields
+    // const revealPassword = (e => {
+    //   let executed = false;
+    //   return function() {
+    //     if (!executed) {
+    //       executed = true;
+    //       e.target.value = CryptoJS.AES.decrypt(
+    //         e.target.value,
+    //         master
+    //       ).toString(CryptoJS.enc.Utf8);
+    //     }
+    //   };
+    // })();
     function revealPassword(e) {
-      e.target.innerHTML = CryptoJS.AES.decrypt(
-        e.target.innerHTML,
-        master
-      ).toString(CryptoJS.enc.Utf8);
+      e.target.value = CryptoJS.AES.decrypt(e.target.value, master).toString(
+        CryptoJS.enc.Utf8
+      );
     }
     // Attach listeners on password fields
     Array.from(

@@ -52,6 +52,9 @@
   #output {
     width: 90%;
     .output_field {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       border-radius: 5px;
       padding: 1em;
       margin-bottom: 25px;

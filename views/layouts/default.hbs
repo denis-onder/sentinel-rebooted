@@ -7,7 +7,10 @@
   <title>Sentinel - {{title}}</title>
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  {{!-- Default CSS --}}
   <link rel="stylesheet" href="/css/default.css">
+  {{!-- Dynamic CSS loader --}}
+  <link rel="stylesheet" href="/css/{{cssAndJSfilename}}.css">
   <script src="https://kit.fontawesome.com/df793fd00b.js" crossorigin="anonymous"></script>
 </head>
 
@@ -17,5 +20,9 @@
 
 {{!-- Axios --}}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+{{!-- Crypto --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+{{!-- Dynamic JS loader --}}
+<script src="/js/{{cssAndJSfilename}}.js"></script>
 
 </html>

@@ -15,13 +15,22 @@ class Router {
   }
   private setViewEndpoints(): void {
     this.router.get("/", (req: Request, res: Response) =>
-      res.render("pages/landing", { title: "Landing" })
+      res.render("pages/landing", {
+        title: "Landing",
+        cssAndJSfilename: "landing"
+      })
     );
     this.router.get("/register", (req: Request, res: Response) =>
-      res.render("pages/register", { title: "Register" })
+      res.render("pages/register", {
+        title: "Register",
+        cssAndJSfilename: "authentication"
+      })
     );
     this.router.get("/login", (req: Request, res: Response) =>
-      res.render("pages/login", { title: "Login" })
+      res.render("pages/login", {
+        title: "Login",
+        cssAndJSfilename: "authentication"
+      })
     );
     this.router.get(
       "/dashboard",
@@ -33,7 +42,8 @@ class Router {
         res.render("pages/dashboard", {
           title: "Dashboard",
           firstName: req.user.firstName,
-          lastName: req.user.lastName
+          lastName: req.user.lastName,
+          cssAndJSfilename: "dashboard"
         })
     );
   }

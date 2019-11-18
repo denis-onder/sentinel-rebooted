@@ -1,5 +1,7 @@
 const $ = id => document.getElementById(id);
+const input = $("password_input");
 const output = $("output");
+const wrapper = $("error_handler_wrapper");
 
 function getToken(cookie) {
   const cookies = document.cookie.split(";");
@@ -13,6 +15,8 @@ function getToken(cookie) {
 }
 
 function showFields({ fields, masterPassword: master }) {
+  // Remove master password input
+  $("password").innerHTML = "";
   fields.map(({ emailOrUsername, password, service }) => {
     output.innerHTML += `<div class="output_field">
       <div class="output_field_wrapper">
@@ -39,25 +43,60 @@ function showFields({ fields, masterPassword: master }) {
   });
 }
 
+const showErrors = errObj => {
+  // Disable input
+  input.readOnly = true;
+  // Clear function
+  const clear = () => {
+    wrapper.innerHTML = "";
+    input.readOnly = false;
+  };
+  // Generate error handler
+  const payload = `
+  <div id="error_handler">
+    <i class="fas fa-times error_handler_x"></i>
+    <div class="error_handler_output">
+    <p class="error_handler_output_line">${errObj}</p>
+    </div>
+  </div>
+`
+    .split(",")
+    .join("");
+
+  wrapper.innerHTML += payload;
+  // Remove element after animation is done.
+  // The animation lasts for 5 seconds, hence the 5000ms timeout.
+  setTimeout(clear, 5000);
+};
+
 const getVault = ({ exists }) => {
   // FIXME: Show a modal for creating a vault.
   if (!exists) {
     console.error("You don't have a vault.");
     return;
   }
-  fetch("/vault/open", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${getToken("auth")}`,
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      password: "test1234"
-    })
-  })
-    .then(async res => showFields(await res.json()))
-    .catch(err => console.error(err));
+  // Attach listener to master password input box
+  input.onkeydown = e => {
+    if (e.keyCode === 13) {
+      fetch("/vault/open", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${getToken("auth")}`,
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          password: e.target.value
+        })
+      })
+        .then(async res => {
+          const data = await res.json();
+          if (data.error) throw new Error(data.error);
+          showFields(data);
+        })
+        .catch(err => showErrors(err));
+    }
+  };
 };
 
 (() => {

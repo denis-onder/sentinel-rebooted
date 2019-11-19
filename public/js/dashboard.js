@@ -6,15 +6,21 @@ const submitBtn = $("modal_submit_btn");
 const modal = $("modal");
 const closeBtn = $("modal_close_btn");
 
-function getToken(cookie) {
+function getCookie(cookie) {
   const cookies = document.cookie.split(";");
   const name = `${cookie}=`;
   for (let i = 0; i < cookies.length; i++) {
-    let temp = cookies[i].trim();
-    if (temp.indexOf(name) == 0)
-      return temp.substring(name.length, temp.length);
+    if (cookies[i].includes(name)) return cookies[i].replace(name, "");
   }
   return false;
+}
+
+function deleteCookie(cookie) {
+  const cookies = document.cookie.split(";");
+  const name = `${cookie}=`;
+  for (let i = 0; i < cookies.length; i++) {
+    if (cookies[i].includes(name)) document.cookie = `${name}; Max-Age=0`;
+  }
 }
 
 function showFields({ fields, masterPassword: master }) {
@@ -68,7 +74,7 @@ const addNewField = () => {
   fetch("/vault/add", {
     method: "PUT",
     headers: {
-      Authorization: `Bearer ${getToken("auth")}`,
+      Authorization: `Bearer ${getCookie("auth")}`,
       Accept: "application/json",
       "Content-Type": "application/json"
     },
@@ -127,7 +133,7 @@ const openVault = password => {
   fetch("/vault/open", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${getToken("auth")}`,
+      Authorization: `Bearer ${getCookie("auth")}`,
       Accept: "application/json",
       "Content-Type": "application/json"
     },
@@ -147,7 +153,7 @@ const createVault = password => {
   fetch("/vault/create", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${getToken("auth")}`,
+      Authorization: `Bearer ${getCookie("auth")}`,
       Accept: "application/json",
       "Content-Type": "application/json"
     },
@@ -168,7 +174,7 @@ const checkForVault = () => {
   fetch("/vault/check", {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${getToken("auth")}`
+      Authorization: `Bearer ${getCookie("auth")}`
     }
   })
     .then(res => res.json())
@@ -189,3 +195,9 @@ const checkForVault = () => {
   // Get vault
   checkForVault();
 })();
+
+// Logout
+$("logout").onclick = () => {
+  deleteCookie("auth");
+  window.location.href = "/";
+};

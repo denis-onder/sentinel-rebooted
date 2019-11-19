@@ -98,6 +98,7 @@
         background-color: $lighter_primary;
         transition: all ease-in-out 0.1s;
         font-family: $fonts;
+        font-size: 16px;
         color: white;
         &:focus {
           border-color: $dark_primary;
@@ -128,6 +129,27 @@
         animation: shake 0.5s;
         animation-iteration-count: infinite;
       }
+    }
+  }
+}
+
+.authentication_footer {
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  width: 60%;
+  background-color: $light_primary;
+  text-align: center;
+  color: white;
+  font-family: $fonts;
+  .authentication_footer_text {
+    font-size: 18px;
+    a {
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+      border-bottom: 3px solid $darker_primary;
+      border-block-width: 200%;
     }
   }
 }

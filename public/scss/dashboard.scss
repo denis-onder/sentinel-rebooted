@@ -39,14 +39,14 @@
         font-size: 48px;
         color: white;
         cursor: pointer;
-        transition: all ease-in-out 0.2s;
+        transition: all ease-in-out 0.5s;
         &:hover {
           color: $secondary_color;
         }
       }
       .dashboard_nav_menu_button[data-isopen=""] {
         color: $secondary_color;
-        transform: rotate(90deg);
+        transform: rotate(270deg);
         transform-origin: center center;
       }
     }
@@ -96,22 +96,28 @@
   align-items: center;
   overflow-y: auto !important;
   #output {
-    width: 90%;
+    width: 70%;
     .output_field {
       display: flex;
+      transition: all ease-in-out 0.1s;
       justify-content: space-between;
       align-items: center;
       border-radius: 5px;
       padding: 1em;
       margin-bottom: 25px;
       width: 100%;
-      background: rgb(34, 34, 168);
       background: linear-gradient(
         159deg,
-        rgba(34, 34, 168, 1) 0%,
-        rgba(26, 78, 186, 1) 50%,
-        rgba(11, 169, 184, 1) 100%
+        rgb(47, 47, 194) 0%,
+        rgb(44, 106, 240) 50%,
+        rgb(27, 157, 168) 100%
       );
+      background-size: 400% 400%;
+      &:hover {
+        -webkit-animation: animateGradient 10s ease infinite;
+        -moz-animation: animateGradient 10s ease infinite;
+        animation: animateGradient 10s ease infinite;
+      }
       .output_field_text {
         font-family: $fonts;
         color: #fff;
@@ -364,4 +370,44 @@
 
 .open_modal {
   transform: translateX(0) !important;
+}
+
+.animate_gradient {
+  -webkit-animation: animateGradient 5s ease infinite;
+  -moz-animation: animateGradient 5s ease infinite;
+  animation: animateGradient 5s ease infinite;
+}
+
+@-webkit-keyframes animateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes animateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes animateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

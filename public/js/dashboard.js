@@ -24,8 +24,6 @@ function deleteCookie(cookie) {
 }
 
 function showFields({ fields, masterPassword: master }) {
-  // Remove master password input
-  $("password").innerHTML = "";
   // Clear output
   output.innerHTML = "";
   fields.map(({ emailOrUsername, password, service }) => {
@@ -114,7 +112,7 @@ const showErrors = errObj => {
   setTimeout(clear, 5000);
 };
 
-const getVault = ({ exists }) => {
+const handleVaultCheck = ({ exists }) => {
   // Attach listener to master password input box.
   if (exists) {
     input.setAttribute("placeholder", "Master Password:");
@@ -170,15 +168,13 @@ const createVault = password => {
 };
 
 const checkForVault = () => {
-  // Clear input box
   fetch("/vault/check", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${getCookie("auth")}`
     }
   })
-    .then(res => res.json())
-    .then(getVault)
+    .then(async res => handleVaultCheck(await res.json()))
     .catch(err => console.error(err));
 };
 
@@ -189,6 +185,17 @@ const checkForVault = () => {
   btn.onclick = () => {
     drawer.classList.toggle("open");
     btn.toggleAttribute("data-isopen");
+  };
+  // Global listener for closing the drawer
+  window.onclick = e => {
+    if (
+      e.target !== drawer &&
+      e.target !== btn &&
+      !e.target.classList.contains("drawer_opt")
+    ) {
+      drawer.classList.remove("open");
+      btn.removeAttribute("data-isopen");
+    }
   };
   // Set background color to #1B2A78 (dashboard background) to avoid white overlap
   document.body.style.backgroundColor = "#1B2A78";

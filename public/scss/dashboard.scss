@@ -178,7 +178,6 @@
     flex-direction: row;
     align-items: center;
     padding: 0.25em 0;
-    cursor: pointer;
     .drawer_opt_icon {
       font-size: 36px;
       color: white;
@@ -189,9 +188,16 @@
       color: white;
       font-family: $fonts;
     }
-    &:hover {
-      border-bottom-color: $secondary_color;
-      border-top-color: $secondary_color;
+    &[data-profile="true"] {
+      background-color: $blue;
+      margin-bottom: 25px;
+    }
+    &[data-animated="true"] {
+      cursor: pointer;
+      &:hover {
+        border-bottom-color: $secondary_color;
+        border-top-color: $secondary_color;
+      }
     }
   }
 }

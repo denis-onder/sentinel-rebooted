@@ -188,10 +188,11 @@ const checkForVault = () => {
   };
   // Global listener for closing the drawer
   window.onclick = e => {
+    const classes = Array.from(e.target.classList);
     if (
       e.target !== drawer &&
       e.target !== btn &&
-      !e.target.classList.contains("drawer_opt")
+      !classes.filter(s => s.includes("drawer_opt")).length > 0
     ) {
       drawer.classList.remove("open");
       btn.removeAttribute("data-isopen");

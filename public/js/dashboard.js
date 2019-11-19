@@ -70,33 +70,71 @@ const showErrors = errObj => {
 };
 
 const getVault = ({ exists }) => {
-  // FIXME: Show a modal for creating a vault.
-  if (!exists) {
-    console.error("You don't have a vault.");
-    return;
+  // Attach listener to master password input box.
+  if (exists) {
+    input.setAttribute("placeholder", "Master Password:");
+    input.onkeydown = e => {
+      if (e.keyCode === 13) openVault(e.target.value);
+    };
+  } else {
+    input.setAttribute("placeholder", "Create your vault:");
+    input.onkeydown = e => {
+      if (e.keyCode === 13) createVault(e.target.value);
+    };
   }
-  // Attach listener to master password input box
-  input.onkeydown = e => {
-    if (e.keyCode === 13) {
-      fetch("/vault/open", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${getToken("auth")}`,
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          password: e.target.value
-        })
-      })
-        .then(async res => {
-          const data = await res.json();
-          if (data.error) throw new Error(data.error);
-          showFields(data);
-        })
-        .catch(err => showErrors(err));
+};
+
+const openVault = password => {
+  fetch("/vault/open", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${getToken("auth")}`,
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      password
+    })
+  })
+    .then(async res => {
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      showFields(data);
+    })
+    .catch(err => showErrors(err));
+};
+
+const createVault = password => {
+  fetch("/vault/create", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${getToken("auth")}`,
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      password
+    })
+  })
+    .then(async res => {
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      checkForVault();
+    })
+    .catch(err => showErrors(err));
+};
+
+const checkForVault = () => {
+  // Clear input box
+  fetch("/vault/check", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${getToken("auth")}`
     }
-  };
+  })
+    .then(res => res.json())
+    .then(getVault)
+    .catch(err => console.error(err));
 };
 
 (() => {
@@ -108,13 +146,5 @@ const getVault = ({ exists }) => {
     btn.toggleAttribute("data-isopen");
   };
   // Get vault
-  fetch("/vault/check", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getToken("auth")}`
-    }
-  })
-    .then(res => res.json())
-    .then(getVault)
-    .catch(err => console.error(err));
+  checkForVault();
 })();

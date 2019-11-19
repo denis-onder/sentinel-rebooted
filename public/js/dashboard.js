@@ -41,6 +41,8 @@ function showFields({ fields, masterPassword: master }) {
       document.getElementsByClassName("output_field_password")
     ).map(e => e.addEventListener("click", revealPassword));
   });
+  // Show add field button
+  $("add_field").style.display = "flex";
 }
 
 const showErrors = errObj => {

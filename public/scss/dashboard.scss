@@ -99,7 +99,6 @@
     width: 70%;
     .output_field {
       display: flex;
-      transition: all ease-in-out 0.1s;
       justify-content: space-between;
       align-items: center;
       border-radius: 5px;
@@ -112,7 +111,7 @@
         rgb(44, 106, 240) 50%,
         rgb(27, 157, 168) 100%
       );
-      background-size: 400% 400%;
+      background-size: 200% 200%;
       &:hover {
         -webkit-animation: animateGradient 10s ease infinite;
         -moz-animation: animateGradient 10s ease infinite;
@@ -171,8 +170,6 @@
   box-shadow: 0px 0px 10px 5px rgba(10, 10, 10, 0.6);
   .drawer_opt {
     width: 100%;
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
     transition: all ease-in-out 0.2s;
     display: flex;
     flex-direction: row;
@@ -189,14 +186,14 @@
       font-family: $fonts;
     }
     &[data-profile="true"] {
+      position: absolute;
+      top: $navbar_height;
       background-color: $blue;
-      margin-bottom: 25px;
     }
     &[data-animated="true"] {
       cursor: pointer;
       &:hover {
-        border-bottom-color: $secondary_color;
-        border-top-color: $secondary_color;
+        background-color: $blue;
       }
     }
   }

@@ -266,3 +266,78 @@
   -moz-box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
 }
+
+#modal {
+  transition: all ease-in-out 0.3s;
+  z-index: 3;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: darken($secondary_color, 10%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .modal_close_btn {
+    position: absolute;
+    color: white;
+    font-size: 48px;
+    top: 10px;
+    right: 25px;
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+    &:hover {
+      transform-origin: center center;
+      transform: rotate(135deg);
+      color: $primary_color;
+    }
+  }
+  .modal_inputs {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .modal_input,
+    .modal_submit_btn {
+      height: 36px;
+      text-align: center;
+      padding: 0;
+      width: 100%;
+      border: 3px solid $primary_color;
+      font-family: $fonts;
+      font-size: 18px;
+    }
+    .modal_input {
+      &::placeholder {
+        font-weight: bold;
+      }
+    }
+    margin-bottom: 10px;
+  }
+  .modal_inputs--text {
+    flex-direction: row;
+    justify-content: space-between;
+    .modal_input {
+      width: 49%;
+      &:first-child {
+        float: left;
+      }
+      &:nth-child(2) {
+        float: right;
+      }
+    }
+  }
+  .modal_input--password {
+    // 3px is the border size being deducted in the form of negative padding
+    // 3px * 2 sides => 6px
+    width: calc(100% - 6px) !important;
+  }
+  // Uncomment when done
+  transform: translateX(100%);
+}
+
+.open_modal {
+  transform: translateX(0) !important;
+}

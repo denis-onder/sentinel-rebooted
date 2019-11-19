@@ -19,13 +19,13 @@ function showFields({ fields, masterPassword: master }) {
   $("password").innerHTML = "";
   fields.map(({ emailOrUsername, password, service }) => {
     output.innerHTML += `<div class="output_field">
-      <div class="output_field_wrapper">
-        <p class="output_field_text">${service}</p>
-        <p class="output_field_text">${emailOrUsername}</p>
-      </div>
-      <div class="output_field_wrapper">
-        <input type="password" class="output_field_password" value="${password}" readonly />
-      </div>
+    <div class="output_field_wrapper">
+    <p class="output_field_text">${service}</p>
+    <p class="output_field_text">${emailOrUsername}</p>
+    </div>
+    <div class="output_field_wrapper">
+    <input type="password" class="output_field_password" value="${password}" readonly />
+    </div>
     </div>`;
     // Use the master for decrypting password fields
     function revealPassword(e) {
@@ -42,8 +42,17 @@ function showFields({ fields, masterPassword: master }) {
     ).map(e => e.addEventListener("click", revealPassword));
   });
   // Show add field button
-  $("add_field").style.display = "flex";
+  const addField = $("add_field");
+  addField.style.display = "flex";
+  addField.onclick = openModal;
 }
+
+const openModal = () => {
+  const modal = $("modal");
+  const closeBtn = $("modal_close_btn");
+  modal.classList.add("open_modal");
+  closeBtn.onclick = () => modal.classList.remove("open_modal");
+};
 
 const showErrors = errObj => {
   // Disable input

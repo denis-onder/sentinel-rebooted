@@ -25,11 +25,12 @@ function deleteCookie(cookie) {
 
 function showFields({ fields, masterPassword: master }) {
   // Hide input
-  input.style.display = "none";
+  $("password").style.display = "none";
   // Clear output
   output.innerHTML = "";
-  fields.map(({ emailOrUsername, password, service }) => {
-    output.innerHTML += `<div class="output_field">
+  if (fields.length > 0) {
+    fields.map(({ emailOrUsername, password, service }) => {
+      output.innerHTML += `<div class="output_field">
     <div class="output_field_wrapper">
     <p class="output_field_text">${service}</p>
     <p class="output_field_text">${emailOrUsername}</p>
@@ -38,20 +39,27 @@ function showFields({ fields, masterPassword: master }) {
     <input type="password" class="output_field_password" value="${password}" readonly />
     </div>
     </div>`;
-    // Use the master for decrypting password fields
-    function revealPassword(e) {
-      if (e.target.type !== "text") {
-        e.target.type = "text";
-        e.target.value = CryptoJS.AES.decrypt(e.target.value, master).toString(
-          CryptoJS.enc.Utf8
-        );
+      // Use the master for decrypting password fields
+      function revealPassword(e) {
+        if (e.target.type !== "text") {
+          e.target.type = "text";
+          e.target.value = CryptoJS.AES.decrypt(
+            e.target.value,
+            master
+          ).toString(CryptoJS.enc.Utf8);
+        }
       }
-    }
-    // Attach listeners on password fields
-    Array.from(
-      document.getElementsByClassName("output_field_password")
-    ).map(e => e.addEventListener("click", revealPassword));
-  });
+      // Attach listeners on password fields
+      Array.from(
+        document.getElementsByClassName("output_field_password")
+      ).map(e => e.addEventListener("click", revealPassword));
+    });
+  } else {
+    output.innerHTML += `<div class="output_field">
+    <div class="output_field_wrapper">
+    <p class="output_field_text">No passwords in vault.</p>
+    </div>`;
+  }
   // Show add field button
   const addField = $("add_field");
   addField.style.display = "flex";
@@ -115,14 +123,15 @@ const showErrors = errObj => {
 };
 
 const handleVaultCheck = ({ exists }) => {
+  const label = $("password_label");
   // Attach listener to master password input box.
   if (exists) {
-    input.setAttribute("placeholder", "Master Password:");
+    label.innerHTML = "Open your vault!";
     input.onkeydown = e => {
       if (e.keyCode === 13) openVault(e.target.value);
     };
   } else {
-    input.setAttribute("placeholder", "Create your vault:");
+    label.innerHTML = "Create your vault!";
     input.onkeydown = e => {
       if (e.keyCode === 13) createVault(e.target.value);
     };

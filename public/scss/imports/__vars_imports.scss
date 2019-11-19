@@ -5,6 +5,7 @@
 // $blue: #0c44c0;
 $primary_color: #295189;
 $light_primary: lighten($primary_color, 10%);
+$lighter_primary: lighten($primary_color, 20%);
 $dark_primary: darken($primary_color, 10%);
 $secondary_color: #3392ff;
 $blue: #0077ff;

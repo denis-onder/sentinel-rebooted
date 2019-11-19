@@ -24,6 +24,8 @@ function deleteCookie(cookie) {
 }
 
 function showFields({ fields, masterPassword: master }) {
+  // Hide input
+  input.style.display = "none";
   // Clear output
   output.innerHTML = "";
   fields.map(({ emailOrUsername, password, service }) => {

@@ -1,14 +1,14 @@
 #add_field {
   display: none;
   position: fixed;
-  bottom: 10px;
-  right: 10px;
+  bottom: 25px;
+  right: 20px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: $secondary_color;
+  background-color: $primary_color;
   padding: 0.35em 1em;
-  color: $primary_color;
+  color: white;
   .add_field_text {
     font-size: 18;
     font-family: $fonts;
@@ -22,8 +22,7 @@
   cursor: pointer;
   transition: all ease-in-out 0.2s;
   &:hover {
-    background-color: $primary_color;
-    color: white;
+    background-color: $dark_primary;
   }
   -webkit-box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);

@@ -1,0 +1,31 @@
+#add_field {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: $secondary_color;
+  padding: 0.35em 1em;
+  color: $primary_color;
+  .add_field_text {
+    font-size: 18;
+    font-family: $fonts;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+  .add_field_icon {
+    font-size: 32px;
+    margin-left: 5px;
+  }
+  cursor: pointer;
+  transition: all ease-in-out 0.2s;
+  &:hover {
+    background-color: $primary_color;
+    color: white;
+  }
+  -webkit-box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
+}

@@ -46,14 +46,14 @@
         color: white;
         cursor: pointer;
         transition: all ease-in-out 0.2s;
+        &[data-isopen=""] {
+          color: $lighter_primary;
+          transform: rotate(90deg);
+          transform-origin: center center;
+        }
         &:hover {
           color: $lighter_primary;
         }
-      }
-      .dashboard_nav_menu_button[data-isopen=""] {
-        color: $lighter_primary;
-        transform: rotate(90deg);
-        transform-origin: center center;
       }
     }
   }

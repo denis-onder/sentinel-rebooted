@@ -34,12 +34,12 @@
     &[data-profile="true"] {
       position: absolute;
       top: $navbar_height;
-      background-color: $dark_primary;
+      background-color: $primary_color;
     }
     &[data-animated="true"] {
       cursor: pointer;
       &:hover {
-        background-color: $dark_primary;
+        background-color: $primary_color;
       }
     }
     &[data-opt="settings"] {

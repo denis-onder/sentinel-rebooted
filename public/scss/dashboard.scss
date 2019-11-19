@@ -84,12 +84,19 @@
       }
     }
   }
+}
+
+.output_wrapper {
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto !important;
   #output {
     width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     .output_field {
       display: flex;
       justify-content: space-between;
@@ -132,6 +139,9 @@
       .output_field_wrapper {
         width: 25%;
         margin: 0 10px;
+      }
+      &:first-child {
+        margin-top: 10px !important;
       }
     }
   }

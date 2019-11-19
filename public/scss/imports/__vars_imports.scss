@@ -1,8 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 
-$primary_color: #031130;
-$secondary_color: #04d9ed;
-$blue: #0c44c0;
+// $primary_color: #031130;
+// $secondary_color: #04d9ed;
+// $blue: #0c44c0;
+$primary_color: #295189;
+$light_primary: lighten($primary_color, 10%);
+$dark_primary: darken($primary_color, 10%);
+$secondary_color: #3392ff;
+$blue: #0077ff;
 $red: rgb(226, 34, 34);
 $fonts: "Montserrat", Arial, Helvetica, sans-serif;
 $navbar_height: 60px;

@@ -3,7 +3,7 @@
 #dashboard {
   width: 100%;
   height: 100%;
-  background-color: #1b2a78;
+  background-color: lighten($primary_color, 20%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,23 +64,30 @@
       font-weight: bold;
       padding: 5px;
       outline: none;
-      border: 3px solid $primary_color;
-      background-color: $primary_color !important;
-      border-radius: 7px;
-      color: $secondary_color;
+      border: 5px solid $dark_primary;
+      background-color: $dark_primary !important;
+      padding: 0.5em 0;
+      color: white;
       font-size: 18px;
       transition: all ease-in-out 0.2s;
+      &::placeholder {
+        color: white;
+      }
       &:focus {
+        border-color: $blue;
         &::placeholder {
           color: transparent;
         }
       }
       &:hover {
-        border-color: $secondary_color;
+        border-color: $blue;
       }
       &[readonly=""] {
         color: $red;
         border-color: $red;
+        &::placeholder {
+          color: $red;
+        }
       }
     }
   }
@@ -98,25 +105,16 @@
   #output {
     width: 70%;
     .output_field {
+      -webkit-box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
+      box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-radius: 5px;
       padding: 1em;
       margin-bottom: 25px;
       width: 100%;
-      background: linear-gradient(
-        159deg,
-        rgb(47, 47, 194) 0%,
-        rgb(44, 106, 240) 50%,
-        rgb(27, 157, 168) 100%
-      );
-      background-size: 200% 200%;
-      &:hover {
-        -webkit-animation: animateGradient 10s ease infinite;
-        -moz-animation: animateGradient 10s ease infinite;
-        animation: animateGradient 10s ease infinite;
-      }
+      background-color: $dark_primary;
       .output_field_text {
         font-family: $fonts;
         color: #fff;
@@ -124,18 +122,17 @@
       .output_field_password {
         font-family: $fonts;
         font-weight: bold;
-        width: 100%;
+        width: calc(100% - 20px);
         padding: 5px;
         outline: none;
-        border: 3px solid $primary_color;
-        background-color: $primary_color;
-        border-radius: 7px;
-        color: $secondary_color;
+        border: 5px solid $light_primary;
+        background-color: $light_primary;
+        color: white;
         font-size: 16px;
         transition: all ease-in-out 0.2s;
         &[type="password"] {
           cursor: pointer;
-          color: $primary_color;
+          color: $light_primary;
           &:hover {
             border-color: $secondary_color;
           }
@@ -160,7 +157,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: lighten($primary_color, 10%);
+  background-color: $light_primary;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -188,13 +185,16 @@
     &[data-profile="true"] {
       position: absolute;
       top: $navbar_height;
-      background-color: $blue;
+      background-color: $dark_primary;
     }
     &[data-animated="true"] {
       cursor: pointer;
       &:hover {
-        background-color: $blue;
+        background-color: $dark_primary;
       }
+    }
+    &[data-opt="settings"] {
+      border-bottom: 3px solid $dark_primary !important;
     }
   }
 }
@@ -260,7 +260,6 @@
   align-items: center;
   background-color: $secondary_color;
   padding: 0.35em 1em;
-  border-radius: 5px;
   color: $primary_color;
   .add_field_text {
     font-size: 18;
@@ -326,9 +325,8 @@
       outline: none;
       font-family: $fonts;
       font-size: 18px;
-      border-radius: 7px;
       color: white;
-      background-color: lighten($primary_color, 10%);
+      background-color: $light_primary;
       &:focus {
         border-color: $secondary_color;
       }
@@ -373,44 +371,4 @@
 
 .open_modal {
   transform: translateX(0) !important;
-}
-
-.animate_gradient {
-  -webkit-animation: animateGradient 5s ease infinite;
-  -moz-animation: animateGradient 5s ease infinite;
-  animation: animateGradient 5s ease infinite;
-}
-
-@-webkit-keyframes animateGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@-moz-keyframes animateGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-@keyframes animateGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }

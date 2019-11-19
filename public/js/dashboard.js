@@ -199,7 +199,7 @@ const checkForVault = () => {
     }
   };
   // Set background color to #1B2A78 (dashboard background) to avoid white overlap
-  document.body.style.backgroundColor = "#1B2A78";
+  document.body.style.backgroundColor = "#4e82ca";
   // Get vault
   checkForVault();
 })();

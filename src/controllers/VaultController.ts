@@ -39,8 +39,7 @@ class VaultController {
       password: bytes.toString()
     };
     vault.fields = [...vault.fields, newField];
-    const sendFields = ({ fields }: any) => res.status(200).json(fields);
-    vault.save().then(sendFields);
+    vault.save().then(() => res.status(200).json(vault));
   }
   public async deleteField(req: SuperRequest, res: Response) {
     const vault: any = await Vault.findOne({ user: req.user.id });

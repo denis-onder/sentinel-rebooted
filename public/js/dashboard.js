@@ -2,6 +2,9 @@ const $ = id => document.getElementById(id);
 const input = $("password_input");
 const output = $("output");
 const wrapper = $("error_handler_wrapper");
+const submitBtn = $("modal_submit_btn");
+const modal = $("modal");
+const closeBtn = $("modal_close_btn");
 
 function getToken(cookie) {
   const cookies = document.cookie.split(";");
@@ -17,6 +20,8 @@ function getToken(cookie) {
 function showFields({ fields, masterPassword: master }) {
   // Remove master password input
   $("password").innerHTML = "";
+  // Clear output
+  output.innerHTML = "";
   fields.map(({ emailOrUsername, password, service }) => {
     output.innerHTML += `<div class="output_field">
     <div class="output_field_wrapper">
@@ -48,10 +53,33 @@ function showFields({ fields, masterPassword: master }) {
 }
 
 const openModal = () => {
-  const modal = $("modal");
-  const closeBtn = $("modal_close_btn");
   modal.classList.add("open_modal");
   closeBtn.onclick = () => modal.classList.remove("open_modal");
+  // Set submit event
+  submitBtn.onclick = addNewField;
+};
+
+const addNewField = () => {
+  const data = {
+    emailOrUsername: $("modal_input_emailOrUsername").value,
+    service: $("modal_input_service").value,
+    password: $("modal_input_password").value
+  };
+  fetch("/vault/add", {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${getToken("auth")}`,
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+    .then(async res => {
+      // Close modal
+      modal.classList.remove("open_modal");
+      showFields(await res.json());
+    })
+    .catch(err => showErrors(err.response.data));
 };
 
 const showErrors = errObj => {
@@ -156,6 +184,8 @@ const checkForVault = () => {
     drawer.classList.toggle("open");
     btn.toggleAttribute("data-isopen");
   };
+  // Set background color to #1B2A78 (dashboard background) to avoid white overlap
+  document.body.style.backgroundColor = "#1B2A78";
   // Get vault
   checkForVault();
 })();

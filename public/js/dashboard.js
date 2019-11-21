@@ -194,14 +194,14 @@ function logout() {
 }
 
 function deleteVault() {
-  callAPI("/vault/delete", "DELETE", null, () => {
-    checkForVault();
-    settings.classList.remove("open_settings");
-  });
+  callAPI("/vault/delete", "DELETE", null, () => window.location.reload());
 }
 
 function deleteAccount() {
-  callAPI("/delete", "DELETE", null, () => (window.location.href = "/"));
+  callAPI("/delete", "DELETE", null, () => {
+    handleCookie("auth", "delete");
+    window.location.href = "/";
+  });
 }
 
 function setListeners() {

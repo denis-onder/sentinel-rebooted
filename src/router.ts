@@ -10,7 +10,8 @@ const passport = require("passport");
 class Router {
   public router: express.Router = express.Router();
   constructor() {
-    this.setAPIRoutes();
+    this.setAuthRoutes();
+    this.setVaultRoutes();
     this.setViewEndpoints();
   }
   private setViewEndpoints(): void {
@@ -36,7 +37,8 @@ class Router {
       "/dashboard",
       cookieMiddleware,
       passport.authenticate("jwt", {
-        session: false
+        session: false,
+        failureRedirect: "/login"
       }),
       (req: SuperRequest, res: Response) =>
         res.render("pages/dashboard", {
@@ -47,7 +49,7 @@ class Router {
         })
     );
   }
-  private setAPIRoutes(): void {
+  private setAuthRoutes(): void {
     this.router.post(
       "/register",
       validateInput,
@@ -61,6 +63,13 @@ class Router {
       passport.authenticate("jwt", { session: false }),
       (req: SuperRequest, res: Response) => AuthController.current(req, res)
     );
+    this.router.delete(
+      "/delete",
+      passport.authenticate("jwt", { session: false }),
+      (req: SuperRequest, res: Response) => AuthController.delete(req, res)
+    );
+  }
+  private setVaultRoutes(): void {
     this.router.get(
       "/vault/check",
       passport.authenticate("jwt", { session: false }),
@@ -84,6 +93,13 @@ class Router {
       passport.authenticate("jwt", { session: false }),
       checkForVault,
       (req: SuperRequest, res: Response) => VaultController.addField(req, res)
+    );
+    this.router.delete(
+      "/vault/delete",
+      passport.authenticate("jwt", { session: false }),
+      checkForVault,
+      (req: SuperRequest, res: Response) =>
+        VaultController.deleteVault(req, res)
     );
   }
 }

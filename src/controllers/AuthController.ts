@@ -52,6 +52,14 @@ class AuthController {
     };
     return res.status(200).json(user);
   }
+  public delete(req: SuperRequest, res: Response) {
+    User.findByIdAndDelete(req.user.id)
+      .then(() => {
+        res.cookie("auth", "Max-Age=0");
+        res.status(200).json({ deleted: true });
+      })
+      .catch(err => res.status(500).json(err));
+  }
 }
 
 export default new AuthController();

@@ -10,6 +10,8 @@ const settingsCloseBtn = $("settings_close_btn");
 const modalSubmitBtn = $("modal_submit_btn");
 const modalCloseBtn = $("modal_close_btn");
 const navMenuBtn = $("dashboard_nav_menu_button");
+const deleteVaultBtn = $("settings_delete_vault");
+const deleteAccountBtn = $("settings_delete_account");
 const logoutBtn = $("logout");
 
 function callAPI(url, method, payload, onResolve) {
@@ -188,7 +190,18 @@ function checkForVault() {
 
 function logout() {
   handleCookie("auth", "delete");
-  window.location.href = "/";
+  window.location.href = "/login";
+}
+
+function deleteVault() {
+  callAPI("/vault/delete", "DELETE", null, () => {
+    checkForVault();
+    settings.classList.remove("open_settings");
+  });
+}
+
+function deleteAccount() {
+  callAPI("/delete", "DELETE", null, () => (window.location.href = "/"));
 }
 
 function setListeners() {
@@ -210,6 +223,10 @@ function setListeners() {
       navMenuBtn.removeAttribute("data-isopen");
     }
   };
+  // Delete vault
+  deleteVaultBtn.onclick = deleteVault();
+  // Delete account
+  deleteAccountBtn.onclick = deleteAccount();
 }
 
 (() => {

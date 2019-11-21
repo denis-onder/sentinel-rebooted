@@ -2,25 +2,66 @@ const $ = id => document.getElementById(id);
 const input = $("password_input");
 const output = $("output");
 const wrapper = $("error_handler_wrapper");
-const submitBtn = $("modal_submit_btn");
 const modal = $("modal");
-const closeBtn = $("modal_close_btn");
+const settings = $("settings");
+const settingsOpenBtn = $("open_settings");
+const settingsCloseBtn = $("settings_close_btn");
+const modalSubmitBtn = $("modal_submit_btn");
+const modalCloseBtn = $("modal_close_btn");
+const navMenuBtn = $("dashboard_nav_menu_button");
+const drawer = $("drawer");
 
-function getCookie(cookie) {
+function callAPI(url, method, payload, onResolve) {
+  const Authorization = `Bearer ${handleCookie("auth", "get")}`;
+  const config = {
+    headers: {
+      Authorization,
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  };
+  if (payload) {
+    config.body = JSON.stringify(payload);
+  }
+  fetch(url, {
+    method,
+    ...config
+  })
+    .then(onResolve)
+    .catch(err => showErrors(err.response.data));
+}
+
+function getCookie(name) {
   const cookies = document.cookie.split(";");
-  const name = `${cookie}=`;
   for (let i = 0; i < cookies.length; i++) {
     if (cookies[i].includes(name)) return cookies[i].replace(name, "");
   }
   return false;
 }
 
-function deleteCookie(cookie) {
+function deleteCookie(name) {
   const cookies = document.cookie.split(";");
-  const name = `${cookie}=`;
   for (let i = 0; i < cookies.length; i++) {
     if (cookies[i].includes(name)) document.cookie = `${name}; Max-Age=0`;
   }
+}
+
+function handleCookie(cookie, method) {
+  const name = `${cookie}=`;
+  if (method === "get") return getCookie(name);
+  return deleteCookie(name);
+}
+
+function render(service, emailOrUsername, password) {
+  output.innerHTML += `<div class="output_field">
+    <div class="output_field_wrapper">
+    <p class="output_field_text">${service}</p>
+    <p class="output_field_text">${emailOrUsername}</p>
+    </div>
+    <div class="output_field_wrapper">
+    <input type="password" class="output_field_password" value="${password}" placeholder="Click to reveal the password!" readonly />
+    </div>
+    </div>`;
 }
 
 function showFields({ fields, masterPassword: master }) {
@@ -28,17 +69,10 @@ function showFields({ fields, masterPassword: master }) {
   $("password").style.display = "none";
   // Clear output
   output.innerHTML = "";
+  // Conduct rendering
   if (fields.length > 0) {
     fields.map(({ emailOrUsername, password, service }) => {
-      output.innerHTML += `<div class="output_field">
-    <div class="output_field_wrapper">
-    <p class="output_field_text">${service}</p>
-    <p class="output_field_text">${emailOrUsername}</p>
-    </div>
-    <div class="output_field_wrapper">
-    <input type="password" class="output_field_password" value="${password}" readonly />
-    </div>
-    </div>`;
+      render(service, emailOrUsername, password);
       // Use the master for decrypting password fields
       function revealPassword(e) {
         if (e.target.type !== "text") {
@@ -50,9 +84,9 @@ function showFields({ fields, masterPassword: master }) {
         }
       }
       // Attach listeners on password fields
-      Array.from(
-        document.getElementsByClassName("output_field_password")
-      ).map(e => e.addEventListener("click", revealPassword));
+      Array.from(document.getElementsByClassName("output_field_password")).map(
+        e => (e.onclick = revealPassword)
+      );
     });
   } else {
     output.innerHTML += `<div class="output_field">
@@ -68,10 +102,15 @@ function showFields({ fields, masterPassword: master }) {
 
 const openModal = () => {
   modal.classList.add("open_modal");
-  closeBtn.onclick = () => modal.classList.remove("open_modal");
+  modalCloseBtn.onclick = () => modal.classList.remove("open_modal");
   // Set submit event
-  submitBtn.onclick = addNewField;
+  modalSubmitBtn.onclick = addNewField;
 };
+
+settingsOpenBtn.addEventListener("click", () => {
+  settings.classList.add("open_settings");
+  settingsCloseBtn.onclick = () => settings.classList.remove("open_settings");
+});
 
 const addNewField = () => {
   const data = {
@@ -79,21 +118,11 @@ const addNewField = () => {
     service: $("modal_input_service").value,
     password: $("modal_input_password").value
   };
-  fetch("/vault/add", {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${getCookie("auth")}`,
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-    .then(async res => {
-      // Close modal
-      modal.classList.remove("open_modal");
-      showFields(await res.json());
-    })
-    .catch(err => showErrors(err.response.data));
+  callAPI("/vault/add", "PUT", data, async res => {
+    // Close modal
+    modal.classList.remove("open_modal");
+    showFields(await res.json());
+  });
 };
 
 const showErrors = errObj => {
@@ -124,99 +153,66 @@ const showErrors = errObj => {
 
 const handleVaultCheck = ({ exists }) => {
   const label = $("password_label");
-  // Attach listener to master password input box.
-  if (exists) {
-    label.innerHTML = "Open your vault!";
-    input.onkeydown = e => {
-      if (e.keyCode === 13) openVault(e.target.value);
-    };
-  } else {
-    label.innerHTML = "Create your vault!";
-    input.onkeydown = e => {
-      if (e.keyCode === 13) createVault(e.target.value);
-    };
-  }
+  label.innerHTML = exists ? "Open your vault!" : "Create your vault!";
+  input.onkeydown = e => {
+    if (e.keyCode === 13)
+      exists ? openVault(e.target.value) : createVault(e.target.value);
+  };
 };
 
 const openVault = password => {
-  fetch("/vault/open", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${getCookie("auth")}`,
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      password
-    })
-  })
-    .then(async res => {
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
-      showFields(data);
-    })
-    .catch(err => showErrors(err));
+  callAPI("/vault/open", "POST", { password }, async res => {
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    showFields(data);
+  });
 };
 
 const createVault = password => {
-  fetch("/vault/create", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${getCookie("auth")}`,
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      password
-    })
-  })
-    .then(async res => {
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
-      checkForVault();
-    })
-    .catch(err => showErrors(err));
+  callAPI("/vault/create", "POST", { password }, async res => {
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    checkForVault();
+  });
 };
 
 const checkForVault = () => {
-  fetch("/vault/check", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getCookie("auth")}`
-    }
-  })
-    .then(async res => handleVaultCheck(await res.json()))
-    .catch(err => console.error(err));
+  callAPI("/vault/check", "GET", null, async res =>
+    handleVaultCheck(await res.json())
+  );
 };
 
-(() => {
-  const btn = $("dashboard_nav_menu_button");
-  const drawer = $("drawer");
+function setListeners() {
   // Button listener
-  btn.onclick = () => {
+  navMenuBtn.onclick = () => {
     drawer.classList.toggle("open");
-    btn.toggleAttribute("data-isopen");
+    navMenuBtn.toggleAttribute("data-isopen");
   };
   // Global listener for closing the drawer
   window.onclick = e => {
     const classes = Array.from(e.target.classList);
     if (
       e.target !== drawer &&
-      e.target !== btn &&
+      e.target !== navMenuBtn &&
       !classes.filter(s => s.includes("drawer_opt")).length > 0
     ) {
       drawer.classList.remove("open");
-      btn.removeAttribute("data-isopen");
+      navMenuBtn.removeAttribute("data-isopen");
     }
   };
-  // Set background color to #1B2A78 (dashboard background) to avoid white overlap
+}
+
+(() => {
+  // Set background color to avoid white overlap
   document.body.style.backgroundColor = "#4e82ca";
-  // Get vault
+  // Initialize listeners
+  setListeners();
+  // Start the vault procedure
   checkForVault();
 })();
 
 // Logout
 $("logout").onclick = () => {
-  deleteCookie("auth");
+  handleCookie("auth", "delete");
   window.location.href = "/";
 };

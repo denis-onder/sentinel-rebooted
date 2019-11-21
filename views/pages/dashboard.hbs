@@ -13,52 +13,14 @@
   </div>
 </div>
 
-<div class="output_wrapper">
-  <div id="output">
+{{> dashboard/modal }}
 
-  </div>
-</div>
+{{> dashboard/settings }}
 
-<div id="drawer">
-  <div class="drawer_opt" data-profile="true">
-    <i class="fas fa-user-circle drawer_opt_icon"></i>
-    <p class="drawer_opt_name">{{firstName}} {{lastName}}</p>
-  </div>
-  <div class="drawer_opt" data-animated="true" data-opt="settings" id="open_settings">
-    <i class=" fas fa-cog drawer_opt_icon"></i>
-    <p class="drawer_opt_name">Settings</p>
-  </div>
-  <div class="drawer_opt" id="logout" data-animated="true">
-    <i class=" fas fa-sign-out-alt drawer_opt_icon"></i>
-    <p class="drawer_opt_name">Log Out</p>
-  </div>
-</div>
+{{> dashboard/output }}
 
-<div id="add_field">
-  <p class="add_field_text">Add Field</p>
-  <i class="fas fa-plus-square add_field_icon"></i>
-</div>
+{{> dashboard/add_field }}
 
-<div id="error_handler_wrapper"></div>
+{{> dashboard/drawer }}
 
-<div id="modal">
-  <i id="modal_close_btn" class="modal_close_btn fas fa-times"></i>
-  <div class="modal_inputs modal_inputs--text">
-    <input type="text" class="modal_input" id="modal_input_emailOrUsername" placeholder="Email or username:">
-    <input type="text" class="modal_input" id="modal_input_service" placeholder="Service:">
-  </div>
-  <div class="modal_inputs">
-    <input type="password" class="modal_input modal_input--password" id="modal_input_password" placeholder="Password:">
-  </div>
-  <div class="modal_inputs modal_inputs--submit">
-    <button id="modal_submit_btn" class="modal_submit_btn">Submit</button>
-  </div>
-</div>
-
-<div id="settings">
-  <i id="settings_close_btn" class="settings_close_btn fas fa-times"></i>
-  <div class="settings_buttons">
-    <button class="settings_buttons_button">Delete Vault</button>
-    <button class="settings_buttons_button">Delete Account</button>
-  </div>
-</div>
+{{> error_handler }}

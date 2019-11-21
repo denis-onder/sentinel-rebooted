@@ -23,7 +23,8 @@ export default (app: express.Application): void => {
     hbs({
       extname: "hbs",
       defaultLayout: "default",
-      layoutsDir: path.join(__dirname, "../../views/layouts")
+      layoutsDir: path.join(__dirname, "../../views/layouts"),
+      partialsDir: path.join(__dirname, "../../views/partials")
     })
   );
   app.set("view engine", "hbs");

@@ -224,9 +224,9 @@ function setListeners() {
     }
   };
   // Delete vault
-  deleteVaultBtn.onclick = deleteVault();
+  deleteVaultBtn.onclick = deleteVault;
   // Delete account
-  deleteAccountBtn.onclick = deleteAccount();
+  deleteAccountBtn.onclick = deleteAccount;
 }
 
 (() => {

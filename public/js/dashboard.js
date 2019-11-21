@@ -1,6 +1,7 @@
 const $ = id => document.getElementById(id);
 const input = $("password_input");
 const output = $("output");
+const drawer = $("drawer");
 const wrapper = $("error_handler_wrapper");
 const modal = $("modal");
 const settings = $("settings");
@@ -9,7 +10,7 @@ const settingsCloseBtn = $("settings_close_btn");
 const modalSubmitBtn = $("modal_submit_btn");
 const modalCloseBtn = $("modal_close_btn");
 const navMenuBtn = $("dashboard_nav_menu_button");
-const drawer = $("drawer");
+const logoutBtn = $("logout");
 
 function callAPI(url, method, payload, onResolve) {
   const Authorization = `Bearer ${handleCookie("auth", "get")}`;
@@ -20,9 +21,7 @@ function callAPI(url, method, payload, onResolve) {
       "Content-Type": "application/json"
     }
   };
-  if (payload) {
-    config.body = JSON.stringify(payload);
-  }
+  if (payload) config.body = JSON.stringify(payload);
   fetch(url, {
     method,
     ...config
@@ -100,19 +99,24 @@ function showFields({ fields, masterPassword: master }) {
   addField.onclick = openModal;
 }
 
-const openModal = () => {
+function openDrawer() {
+  drawer.classList.toggle("open");
+  navMenuBtn.toggleAttribute("data-isopen");
+}
+
+function openModal() {
   modal.classList.add("open_modal");
   modalCloseBtn.onclick = () => modal.classList.remove("open_modal");
   // Set submit event
   modalSubmitBtn.onclick = addNewField;
-};
+}
 
-settingsOpenBtn.addEventListener("click", () => {
+function openSettings() {
   settings.classList.add("open_settings");
   settingsCloseBtn.onclick = () => settings.classList.remove("open_settings");
-});
+}
 
-const addNewField = () => {
+function addNewField() {
   const data = {
     emailOrUsername: $("modal_input_emailOrUsername").value,
     service: $("modal_input_service").value,
@@ -123,9 +127,9 @@ const addNewField = () => {
     modal.classList.remove("open_modal");
     showFields(await res.json());
   });
-};
+}
 
-const showErrors = errObj => {
+function showErrors(errObj) {
   // Disable input
   input.readOnly = true;
   // Clear function
@@ -149,45 +153,51 @@ const showErrors = errObj => {
   // Remove element after animation is done.
   // The animation lasts for 5 seconds, hence the 5000ms timeout.
   setTimeout(clear, 5000);
-};
+}
 
-const handleVaultCheck = ({ exists }) => {
+function handleVaultCheck({ exists }) {
   const label = $("password_label");
   label.innerHTML = exists ? "Open your vault!" : "Create your vault!";
   input.onkeydown = e => {
     if (e.keyCode === 13)
       exists ? openVault(e.target.value) : createVault(e.target.value);
   };
-};
+}
 
-const openVault = password => {
+function openVault(password) {
   callAPI("/vault/open", "POST", { password }, async res => {
     const data = await res.json();
     if (data.error) throw new Error(data.error);
     showFields(data);
   });
-};
+}
 
-const createVault = password => {
+function createVault(password) {
   callAPI("/vault/create", "POST", { password }, async res => {
     const data = await res.json();
     if (data.error) throw new Error(data.error);
     checkForVault();
   });
-};
+}
 
-const checkForVault = () => {
+function checkForVault() {
   callAPI("/vault/check", "GET", null, async res =>
     handleVaultCheck(await res.json())
   );
-};
+}
+
+function logout() {
+  handleCookie("auth", "delete");
+  window.location.href = "/";
+}
 
 function setListeners() {
-  // Button listener
-  navMenuBtn.onclick = () => {
-    drawer.classList.toggle("open");
-    navMenuBtn.toggleAttribute("data-isopen");
-  };
+  // Drawer button listener
+  navMenuBtn.onclick = openDrawer;
+  // Settings panel listener
+  settingsOpenBtn.onclick = openSettings;
+  // Logout listener
+  logoutBtn.onclick = logout;
   // Global listener for closing the drawer
   window.onclick = e => {
     const classes = Array.from(e.target.classList);
@@ -210,9 +220,3 @@ function setListeners() {
   // Start the vault procedure
   checkForVault();
 })();
-
-// Logout
-$("logout").onclick = () => {
-  handleCookie("auth", "delete");
-  window.location.href = "/";
-};

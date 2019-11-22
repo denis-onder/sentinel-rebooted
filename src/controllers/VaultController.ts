@@ -44,10 +44,12 @@ class VaultController {
   public async deleteField(req: SuperRequest, res: Response) {
     const vault: any = await Vault.findOne({ user: req.user.id });
     vault.fields.map((field: any, i: number) => {
-      if (field._id === req.body.fieldID) vault.fields.splice(i, 1);
+      if (field.id === req.body.fieldID) vault.fields.splice(i, 1);
     });
-    const sendFields = ({ fields }: any) => res.status(200).json(fields);
-    vault.save().then(sendFields);
+    vault
+      .save()
+      .then(() => res.status(200).json(vault))
+      .catch(err => res.status(500).json(err));
   }
   public deleteVault(req: SuperRequest, res: Response) {
     Vault.findOneAndDelete({ user: req.user.id })

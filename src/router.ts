@@ -101,6 +101,13 @@ class Router {
       (req: SuperRequest, res: Response) =>
         VaultController.deleteVault(req, res)
     );
+    this.router.delete(
+      "/vault/remove",
+      passport.authenticate("jwt", { session: false }),
+      checkForVault,
+      (req: SuperRequest, res: Response) =>
+        VaultController.deleteField(req, res)
+    );
   }
 }
 

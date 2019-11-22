@@ -43,9 +43,26 @@
           }
         }
       }
+      .output_field_trash {
+        color: $red;
+        cursor: pointer;
+        margin-left: 20px;
+        font-size: 26px;
+        border: 2px solid transparent;
+        transition: all ease-in-out 0.2s;
+        &:hover {
+          color: lighten($red, 20%);
+        }
+      }
       .output_field_wrapper {
         width: 25%;
         margin: 0 10px;
+        &[data-direction="row"] {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: center;
+          align-items: center;
+        }
       }
       &:first-child {
         margin-top: 10px !important;

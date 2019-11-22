@@ -53,13 +53,14 @@ function handleCookie(cookie, method) {
   return deleteCookie(name);
 }
 
-function render(service, emailOrUsername, password) {
+function render(service, emailOrUsername, password, id) {
   output.innerHTML += `<div class="output_field">
     <div class="output_field_wrapper">
     <p class="output_field_text">${service}</p>
     <p class="output_field_text">${emailOrUsername}</p>
     </div>
-    <div class="output_field_wrapper">
+    <div class="output_field_wrapper" data-direction="row">
+    <i class="fas fa-trash output_field_trash" id="${id}"></i>
     <input type="password" class="output_field_password" value="${password}" placeholder="Click to reveal the password!" readonly />
     </div>
     </div>`;
@@ -72,8 +73,8 @@ function showFields({ fields, masterPassword: master }) {
   output.innerHTML = "";
   // Conduct rendering
   if (fields.length > 0) {
-    fields.map(({ emailOrUsername, password, service }) => {
-      render(service, emailOrUsername, password);
+    fields.map(({ emailOrUsername, password, service, _id: id }) => {
+      render(service, emailOrUsername, password, id);
       // Use the master for decrypting password fields
       function revealPassword(e) {
         if (e.target.type !== "text") {
@@ -87,6 +88,10 @@ function showFields({ fields, masterPassword: master }) {
       // Attach listeners on password fields
       Array.from(document.getElementsByClassName("output_field_password")).map(
         e => (e.onclick = revealPassword)
+      );
+      // Attach listeners to trash icons
+      Array.from(document.getElementsByClassName("output_field_trash")).map(
+        e => (e.onclick = deleteField)
       );
     });
   } else {
@@ -202,6 +207,13 @@ function deleteAccount() {
     handleCookie("auth", "delete");
     window.location.href = "/";
   });
+}
+
+function deleteField(e) {
+  const { id: fieldID } = e.target;
+  callAPI("/vault/remove", "DELETE", { fieldID }, async res =>
+    showFields(await res.json())
+  );
 }
 
 function setListeners() {
